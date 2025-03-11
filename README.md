@@ -1,5 +1,7 @@
 # AI Coding Assistant Memory Systems
 
+## UPDATE: I have identified some small bugs and am working on them. 
+
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 A collection of memory systems and meta-workflow frameworks for various AI coding assistants, enabling continuity across sessions and structured project documentation.
