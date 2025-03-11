@@ -138,31 +138,39 @@ flowchart TD
 ### Documentation Update Process
 ```mermaid
 flowchart TD
-    Start[updateMemoryBank] --> P1[reviewAllFiles]
+    Start[updateMemoryBank] -->
     
     subgraph Process
-        P1 --> P2[documentCurrentState]
-        P2 --> P3[clarifyNextSteps]
-        P3 --> P4[updateProjectRules]
+        P1[reviewAllFiles]
+        P2[documentCurrentState]
+        P3[clarifyNextSteps]
+        P4[updateProjectRules]
+        
+        P1 --> P2 --> P3 --> P4
     end
+    
+    Start --> Process
 ```
 
 ### Project Learning Functions
 ```mermaid
 flowchart TD
-    Start{discoverNewPattern} --> D1[identifyPattern]
+    Start{discoverNewPattern} -->
     
     subgraph Learn [learningProcess]
-        D1 --> D2[validateWithUser]
-        D2 --> D3[documentInTaskLogs]
+        D1[identifyPattern]
+        D2[validateWithUser]
+        D3[documentInTaskLogs]
     end
-    
-    D3 --> A1[readTaskLogs]
     
     subgraph Apply [applyLearning]
-        A1 --> A2[applyLearnedPatterns]
-        A2 --> A3[improveFutureWork]
+        A1[readTaskLogs]
+        A2[applyLearnedPatterns]
+        A3[improveFutureWork]
     end
+    
+    Start --> Learn
+    Learn --> Apply
 ```
 
 ### Task Log Management Workflow
@@ -440,4 +448,74 @@ graph TD
     W2 --> X[quantifiedFeedbackLoop]
     X --> X1[useNumericalScoring]
     X --> X2[createClearRewardSignal]
-    X2
+    X2 --> Y[timeBoxedExploration]
+    Y --> Y1[allocateComputeBudget]
+    Y --> Y2[explorationVsExploitationPhases]
+    Y2 --> Q6
+
+    %% Project Pre-existence Check
+    E --> Z[isProjectPreexisting]
+    Z -->|Yes| AA[consultDocumentation]
+    AA --> BB[reviewCurrentImplementation]
+    BB --> M
+    Z -->|No| M
+
+    %% Self-Critique Framework
+    M --> AA1[applyAdversarialSelfCritique]
+    AA1 --> C1[executeCreatorPhase]
+    C1 --> C1a[generateInitialComprehensiveSolution]
+    C1 --> C1b[documentAssumptionsAndDesignDecisions]
+    C1 --> C1c[highlightPerceivedStrengths]
+    C1 --> C2[executeCriticPhase]
+    C2 --> C2a[rigorouslyAnalyzeSolutionForWeaknesses]
+    C2 --> C2b[identifyPerformanceBottlenecks]
+    C2 --> C2c[findEdgeCasesThatCouldCauseFailure]
+    C2 --> C2d[challengeAssumptionsMadeDuringCreation]
+    C2 --> C3[executeDefenderPhase]
+    C3 --> C3a[addressEachCriticismWithSpecificImprovements]
+    C3 --> C3b[prioritizeCriticismsBySeverity]
+    C3 --> C3c[documentTradeoffsInAddressingIssues]
+    C3 --> C4[executeJudgePhase]
+    C4 --> C4a[evaluateOriginalSolutionAndImprovedVersion]
+    C4 --> C4b[quantifyImprovementUsingSpecificMetrics]
+    C4 --> C4c[determineIfFurtherIterationIsNeeded]
+    C4 --> C4d[awardPointsBasedOnImprovementMagnitude]
+    C4 --> AA2[conductMetaAnalysis]
+    AA2 --> AA2a[identifyPatternsInWeaknessesFound]
+    AA2 --> AA2b[documentKeyInsightsDiscoveredThroughTheProcess]
+    AA2 --> Q6
+
+    %% Modular Development
+    M --> M1[implementModularDevelopment]
+    M1 --> M1a[breakIntoSubProjects]
+    M1 --> M1b[processSubProjectsIndependently]
+    M1 --> M1c[aggregateResults]
+    M --> M2[dynamicResourceAllocation]
+    M2 --> M2a[allocateResourcesBasedOnComplexity]
+    M2 --> M2b[enableParallelProcessing]
+    M --> M3[adaptiveDocumentation]
+    M3 --> M3a[minimalLoggingForSimpleTasks]
+    M3 --> M3b[detailedLoggingForComplexTasks]
+    M --> M4[continuousLearning]
+    M4 --> M4a[feedInsightsBackIntoModel]
+    M4 --> M4b[adaptBasedOnFeedback]
+    M --> M5[facilitateHumanAICollaboration]
+    M5 --> M5a[defineHandoffPoints]
+    M5 --> M5b[useCollaborativeTools]
+```
+
+## Project Startup Memory Initialization
+
+At project startup, I will follow this initialization process:
+
+1. Check if memory bank exists (`checkMemoryBankExists`)
+2. If not, create the memory bank directory structure (`createMemoryBankDirectory`)
+3. Scaffold the memory bank file structure (`scaffoldMemoryBankStructure`)
+4. Populate initial content for all memory bank files (`populateMemoryBankFiles`)
+5. Read all memory bank files to establish context (`readMemoryBank`)
+6. Load the XML-based function map into working memory (`initializeMemoryMap`)
+7. Verify all required files exist and are complete (`verifyFilesComplete`)
+8. Document my understanding of the project structure (`verifyContext`)
+9. Prepare for execution based on current context (`developStrategy`)
+
+This structured initialization ensures I have a complete understanding of both the project context and my operational workflow, enabling effective task execution despite memory resets between sessions. The XML-structured function map provides more detailed metadata about functions, their phases, conditions, and relationships than a simple JavaScript object would.

@@ -61,9 +61,6 @@ flowchart TD
     H --> F
 ```
 
-## Special Thanks
-I want to thank [Cline](https://github.com/nickbaumann98/cline_docs/blob/main/prompting/custom%20instructions%20library/cline-memory-bank.md) and [@nickbaumann98](https://github.com/nickbaumann98) for inspiration from the Cline Memory Bank prompt. You are the GOATs.
-
 ## Contributing
 
 Contributions are welcome! If you'd like to add support for another AI coding assistant or improve an existing memory system, please submit a pull request.

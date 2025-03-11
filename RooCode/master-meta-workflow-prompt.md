@@ -138,39 +138,31 @@ flowchart TD
 ### Documentation Update Process
 ```mermaid
 flowchart TD
-    Start[updateMemoryBank] -->
+    Start[updateMemoryBank] --> P1[reviewAllFiles]
     
     subgraph Process
-        P1[reviewAllFiles]
-        P2[documentCurrentState]
-        P3[clarifyNextSteps]
-        P4[updateProjectRules]
-        
-        P1 --> P2 --> P3 --> P4
+        P1 --> P2[documentCurrentState]
+        P2 --> P3[clarifyNextSteps]
+        P3 --> P4[updateProjectRules]
     end
-    
-    Start --> Process
 ```
 
 ### Project Learning Functions
 ```mermaid
 flowchart TD
-    Start{discoverNewPattern} -->
+    Start{discoverNewPattern} --> D1[identifyPattern]
     
     subgraph Learn [learningProcess]
-        D1[identifyPattern]
-        D2[validateWithUser]
-        D3[documentInTaskLogs]
+        D1 --> D2[validateWithUser]
+        D2 --> D3[documentInTaskLogs]
     end
+    
+    D3 --> A1[readTaskLogs]
     
     subgraph Apply [applyLearning]
-        A1[readTaskLogs]
-        A2[applyLearnedPatterns]
-        A3[improveFutureWork]
+        A1 --> A2[applyLearnedPatterns]
+        A2 --> A3[improveFutureWork]
     end
-    
-    Start --> Learn
-    Learn --> Apply
 ```
 
 ### Task Log Management Workflow
