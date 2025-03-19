@@ -125,7 +125,7 @@
 
 /* Logo styling */
 header img {
-  margin: 15px 0;
+  margin: 15px auto;
   max-width: 150px;
   height: auto;
   display: block;
@@ -133,16 +133,118 @@ header img {
   background-color: white;
   padding: 5px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  position: relative;
+  left: 6px; /* Adjust to center the logo inside the circle */
 }
 
 .dark-mode header img {
   box-shadow: 0 2px 8px rgba(0,0,0,0.3);
 }
 
-/* Make the content more readable with better spacing */
+/* Header subtitle */
+.header-subtitle {
+  text-align: center;
+  font-size: 1.1em;
+  color: #555;
+  margin-top: 15px;
+  margin-bottom: 20px;
+  line-height: 1.4;
+}
+
+.dark-mode .header-subtitle {
+  color: #ccc;
+}
+
+/* Three-column layout */
+.wrapper {
+  max-width: 1280px;
+  display: grid;
+  grid-template-columns: 270px 250px 1fr;
+  grid-template-areas: "header toc content" "footer footer footer";
+  gap: 20px;
+}
+
+header {
+  grid-area: header;
+  width: 270px;
+}
+
 section {
-  max-width: 900px;
+  grid-area: content;
   padding: 25px 30px;
+  max-width: unset;
+  width: 100%;
+}
+
+footer {
+  grid-area: footer;
+  width: 100%;
+}
+
+/* Middle column for TOC */
+.toc-column {
+  grid-area: toc;
+  width: 250px;
+  height: calc(100vh - 50px);
+  position: sticky;
+  top: 25px;
+  padding-right: 15px;
+  overflow-y: auto;
+  max-height: 100vh;
+  scrollbar-width: thin;
+}
+
+/* Scrollbar styling for the TOC column */
+.toc-column::-webkit-scrollbar {
+  width: 6px;
+}
+
+.toc-column::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.toc-column::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 3px;
+}
+
+.dark-mode .toc-column::-webkit-scrollbar-track {
+  background: #2a2a2a;
+}
+
+.dark-mode .toc-column::-webkit-scrollbar-thumb {
+  background: #555;
+}
+
+/* Mobile responsiveness */
+@media print, screen and (max-width: 960px) {
+  .wrapper {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "header"
+      "toc"
+      "content"
+      "footer";
+  }
+
+  header, section, .toc-column {
+    width: 100%;
+    float: none;
+    position: static;
+  }
+
+  .toc-column {
+    height: auto;
+    max-height: none;
+    padding-right: 0;
+    border-bottom: 1px solid #e5e5e5;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+  }
+
+  .dark-mode .toc-column {
+    border-bottom-color: #3a3a3a;
+  }
 }
 
 /* Improve code block readability */
@@ -213,10 +315,25 @@ a:hover {
 }
 
 .toc-list a:hover {
-  text-decoration: underline;
-  color: #0056b3;
+  text-decoration: none;
+  color: #4a99e9;
+  transition: color 0.2s ease;
 }
 
 .dark-mode .toc-list a:hover {
   color: #80bdff;
+}
+
+/* Active link in TOC */
+.toc-list a.active {
+  font-weight: bold;
+  color: #0056b3;
+  border-left: 3px solid #0056b3;
+  padding-left: 8px;
+  margin-left: -11px;
+}
+
+.dark-mode .toc-list a.active {
+  color: #58a6ff;
+  border-left-color: #58a6ff;
 }

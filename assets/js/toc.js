@@ -1,28 +1,25 @@
 document.addEventListener('DOMContentLoaded', function() {
-  // Find the main content section and header/sidebar
+  // Find the main content section and the TOC container
   const contentSection = document.querySelector('section');
-  const header = document.querySelector('header');
-  if (!contentSection || !header) return;
+  const tocListContainer = document.getElementById('toc-list');
+
+  if (!contentSection || !tocListContainer) return;
 
   // Find all headings (h1, h2, h3, etc.) in the content
   const headings = contentSection.querySelectorAll('h1, h2, h3, h4, h5, h6');
   if (headings.length < 3) return; // Don't create TOC for just a few headings
 
-  // Create the TOC container
-  const tocContainer = document.createElement('div');
-  tocContainer.className = 'toc-container';
-  tocContainer.innerHTML = '<h2 id="table-of-contents">Contents</h2><div class="toc-list"></div>';
-
-  const tocList = tocContainer.querySelector('.toc-list');
-
   // Track the nesting level of the TOC
   let previousLevel = 0;
-  let listStack = [tocList];
+  let listStack = [tocListContainer];
+  let rootList = document.createElement('ul');
+  tocListContainer.appendChild(rootList);
+  listStack = [rootList];
 
   // Process each heading
   headings.forEach(function(heading) {
-    // Skip the TOC heading itself if we encounter it
-    if (heading.textContent.trim() === 'Table of Contents') return;
+    // Skip any "Contents" or "Table of Contents" heading
+    if (heading.textContent.trim() === 'Contents' || heading.textContent.trim() === 'Table of Contents') return;
 
     // Create ID from heading text if it doesn't have one
     if (!heading.id) {
@@ -37,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const level = parseInt(heading.tagName.charAt(1));
 
     // For sidebar TOC, we might want to limit the depth
-    if (level > 3) return; // Skip h4, h5, h6 for sidebar TOC to keep it compact
+    if (level > 4) return; // Skip h5, h6 for sidebar TOC to keep it compact
 
     // Handle nesting of lists
     if (level > previousLevel) {
@@ -73,12 +70,43 @@ document.addEventListener('DOMContentLoaded', function() {
     previousLevel = level;
   });
 
-  // Find the right place in the sidebar to insert the TOC
-  // If there are downloads, insert after them, otherwise at the end of header
-  const downloads = header.querySelector('.downloads');
-  if (downloads) {
-    downloads.insertAdjacentElement('afterend', tocContainer);
-  } else {
-    header.appendChild(tocContainer);
-  }
+  // Highlight current section when scrolling
+  window.addEventListener('scroll', function() {
+    // Debounce for performance
+    if (this.scrollTimeout) clearTimeout(this.scrollTimeout);
+
+    this.scrollTimeout = setTimeout(function() {
+      // Find all heading elements that have IDs
+      const headings = document.querySelectorAll('h1[id], h2[id], h3[id], h4[id]');
+
+      // Find which one is currently at the top of the viewport
+      let current = '';
+      for (let i = 0; i < headings.length; i++) {
+        const heading = headings[i];
+        const rect = heading.getBoundingClientRect();
+
+        // If the heading is in the viewport or just above it
+        if (rect.top <= 100) {
+          current = heading.id;
+        } else {
+          // Once we find a heading below the viewport, we can stop
+          break;
+        }
+      }
+
+      // Remove 'active' class from all TOC links
+      const tocLinks = document.querySelectorAll('.toc-list a');
+      tocLinks.forEach(link => {
+        link.classList.remove('active');
+      });
+
+      // Add 'active' class to the current section's TOC link
+      if (current) {
+        const activeLink = document.querySelector(`.toc-list a[href="#${current}"]`);
+        if (activeLink) {
+          activeLink.classList.add('active');
+        }
+      }
+    }, 100);
+  });
 });
