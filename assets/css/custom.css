@@ -153,6 +153,7 @@ header img {
 /* Three-column layout */
 .wrapper {
     float: left;
+    margin-left: 0px;
     max-width: 1280px;
     padding: 0;
     display: grid;
