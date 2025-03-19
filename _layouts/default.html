@@ -19,12 +19,19 @@
         <span id="theme-toggle-icon">🌙</span>
       </button>
     </div>
+
+    <!-- Back to top button -->
+    <a href="#" id="back-to-top" class="back-to-top" aria-label="Return to top">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path>
+      </svg>
+    </a>
     <div class="wrapper">
         <header>
           <!-- Title removed as it's already in the documentation pane -->
 
           {% if site.logo %}
-            <img src="{{site.logo | relative_url}}" alt="{{ site.title | default: site.github.repository_name }} Logo" />
+          <a href="{{ "/" | absolute_url }}"><img src="{{site.logo | relative_url}}" alt="{{ site.title | default: site.github.repository_name }} Logo" /></a>
           {% endif %}
 
           <p class="header-subtitle">A sophisticated meta-prompt framework for Windsurf AI IDE</p>
@@ -120,6 +127,27 @@
               });
             }
           }
+        });
+      });
+
+      // Back to top button functionality
+      const backToTopButton = document.getElementById('back-to-top');
+
+      // Show/hide the button based on scroll position
+      window.addEventListener('scroll', function() {
+        if (window.scrollY > 300) {
+          backToTopButton.classList.add('visible');
+        } else {
+          backToTopButton.classList.remove('visible');
+        }
+      });
+
+      // Smooth scroll to top when clicked
+      backToTopButton.addEventListener('click', function(e) {
+        e.preventDefault();
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
         });
       });
     </script>

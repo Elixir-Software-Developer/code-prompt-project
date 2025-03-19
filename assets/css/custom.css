@@ -333,3 +333,50 @@ a:hover {
   color: #58a6ff;
   border-left-color: #58a6ff;
 }
+
+/* Back to top button */
+.back-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #267CB9;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  z-index: 1000;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.3s, transform 0.3s;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  cursor: pointer;
+  font-size: 24px;
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.dark-mode .back-to-top {
+  background-color: #58a6ff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+
+.back-to-top:hover {
+  background-color: #0056b3;
+}
+
+.dark-mode .back-to-top:hover {
+  background-color: #80bdff;
+}
+
+.back-to-top svg {
+  width: 20px;
+  height: 20px;
+  fill: white;
+}
