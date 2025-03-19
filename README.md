@@ -1,430 +1,640 @@
-I am about to publish an entire new version if [the prompt](https://gist.github.com/entrepeneur4lyf/1dae24de42681c9a0d59d3a74a2eff4c). It signifies something I haven't seen anyone else doing. Creating a pseudo execution flow using an XML function map and order-of-operations workflows defined in XML that refer to nodes in a Mermaid diagram that also defines those flows and share "function" naming. So each node represents a function. 
+# Engineered Meta-Cognitive Workflow Architecture for Windsurf
 
-I really want to credit [Nick Baumann w/ Cline Memory Bank](https://cline.bot/blog/memory-bank-how-to-make-cline-an-ai-agent-that-never-forgets) because that was really the catalyst to get me thinking about this whole thing. The discovery of using Mermaid Diagrams to control a workflow was a game changer.
+## Version 3.0 Release - March 19, 2025
 
-The novel part is a feature of Windsurf. It is the Cascade Memory feature - which the models refer to as EPHEMERAL REMINDER. This acts like a cron with limits. If you notice that the models stops making task logs or following the workflow, you have to give it a manual reminder by telling it to remember to follow the "Windsurf Memory System" workflows. Sometimes it struggles if the codebase is large so you might havew to do that every few prompts.
+Developed by [Shawn McAllister](https://x.com/entrepeneur4lyf) at Engineered Automated Systems for Artificial Intelligence (EASAI) in Kannapolis, NC.
 
-You should see this happening -
+*Licensed under Apache 2.0. Any use or adaptation of this technology MUST be accompanied by a license and attribution.*
 
-![thought_process](https://github.com/user-attachments/assets/ac759a27-583b-4b89-b4a8-e63891f702fa)
+Credit to [Nick Baumann w/ Cline Memory Bank](https://cline.bot/blog/memory-bank-how-to-make-cline-an-ai-agent-that-never-forgets) for inspiration with the memory bank system that he developed.
 
-I store the entire prompt (minus rules) in the "global rules" section. I put the rules in the "workspace rules" section.
-Most of the time, I do not need to "intialize" the global rules prompt. However, if I see the model isn't responding, I will say "You need to intialize your Memory Bank with the "Windsurf Memory System" and that usually does the trick. Once it has run through the "initialize memory bank" workflow, Tell it to "Exercute Evaluation Phase" or literally just pass the function "createTaskLog()".
+## Installation Guide for Windsurf IDE
 
-Examples:
+### Step 1: Download the Framework Files
+Download the framework zip file from [here](https://gist.github.com/entrepeneur4lyf/f43405eb0f3c71bc756292b38340e70d/archive/827e59df6904be6f991e6a11e38b87c7b11c6f0f.zip), which contains:
+- `engineered-meta-cognitive-workflow-architechture-windsurf.md` (main prompt)
+- `.windsurfrules` (workspace rules file)
 
-![task-log](https://github.com/user-attachments/assets/30b31de7-fd75-4b32-bbea-cbd7a3260904)
+### Step 2: Set Up Global Rules
+1. Open Windsurf IDE
+2. Click on "Windsurf - Settings" in the bottom-right corner
+3. Select the "Settings" tab
+4. Click "Edit Rules" next to "Set Global AI Rules"
+5. Copy and paste the contents of `engineered-meta-cognitive-workflow-architechture-windsurf.md` into the global rules editor
+6. Save your changes
 
-![poc1](https://github.com/user-attachments/assets/20497fe2-b7fa-45c1-930e-042ad3eef463)
+### Step 3: Set Up Workspace Rules
+1. Copy the `.windsurfrules` file to your project's root directory
 
-![poc2](https://github.com/user-attachments/assets/a606f0f5-9f37-4196-9eb2-83c6b810708e)
+***
 
-![poc3](https://github.com/user-attachments/assets/fd473d74-6110-47ec-9319-ea6ace8cf8fb)
-
-![poc4](https://github.com/user-attachments/assets/7dfdda8b-7123-4912-a3d6-747d663fa32e)
-
-Here is a quick example - the entire prompt will be posted in the repo and below. I will also post analysis from Grok 3, Claude 3.7 Sonnet Thinking and Bolt.new (I don't know which model that is).
-
-It stats with a text prompt, but the engine is this:
-
-```mermaid
-flowchart TD
-    Start[Start: initializeProject] --> CheckExists{checkMemoryBankExists}
-    
-    CheckExists -->|No| CreateDir[createMemoryBankDirectory]
-    CreateDir --> ScaffoldMB[scaffoldMemoryBankStructure]
-    ScaffoldMB --> PopulateFiles[populateMemoryBankFiles]
-    PopulateFiles --> ReadFiles[readMemoryBank]
-    
-    CheckExists -->|Yes| ReadFiles
-    
-    ReadFiles --> CheckFiles{verifyFilesComplete}
-    
-    CheckFiles -->|No| CreateMissing[createMissingFiles]
-    CreateMissing --> Plan[createPlan]
-    
-    CheckFiles -->|Yes| Verify[verifyContext]
-    
-    Plan --> Document[documentPlanning]
-    Verify --> Strategy[developStrategy]
-    Strategy --> Present[presentApproach]
+### Step 4: Initialize the Memory Bank
+Once the rules are set up, start a new chat with Windsurf, attach your project-overview.md file (see guide below), and type (or copy and paste):
 ```
+Initialize your Memory Bank with the "SessionStart" workflow.
+```
+This will trigger the initialization workflow that creates the necessary directory structure and memory files.
 
-## Workflow Phases
+## How the Framework Works
 
-A workflow phase would refer to the different parts of a project evolution. For example, "Planning", "Documentation", etc.
+The Engineered Meta-Cognitive Workflow Architecture is a revolutionary approach to enhancing AI assistants by providing structured memory persistence, workflow patterns, and self-evaluation mechanisms. Unlike traditional prompting techniques, this framework creates a pseudo-execution environment within the AI's context that guides its behavior through well-defined workflows.
 
-I found that it helped to nto include all of the workflows that are repeated frequently in the "<WorkflowFunctions>Phasees</WorkflowFunctions>" beause, logically, logging isn't a "phase" per se. So I just created it's own functions, diagram flow and workflow (see bwlow).
+### The Core Innovation: Function Map and Mermaid Integration
+
+The system's novelty lies in the integration of XML-defined functions with Mermaid diagrams that visually represent the same workflows:
 
 ```xml
 <FunctionMap>
-<!-- Workflow Phase Functions -->
   <WorkflowFunctions>
     <Phase name="Initialization">
       <Function id="initializeProject">Start the project planning process</Function>
       <Function id="checkMemoryBankExists">Verify if memory bank directory exists</Function>
-      <Function id="createMemoryBankDirectory" condition="!memoryBankExists">Create the memory bank directory structure</Function>
-      <Function id="scaffoldMemoryBankStructure" condition="!memoryBankExists">Create the initial structure for memory bank files</Function>
-      <Function id="populateMemoryBankFiles" condition="!memoryBankExists">Populate memory bank files with initial content</Function>
-      <Function id="readMemoryBank">Read all memory bank files to understand project context</Function>
-      <Function id="initializeMemoryMap">Load function map into working memory</Function>
+      <!-- Additional functions... -->
     </Phase>
-  <!-- More Phases Below -->
   </WorkflowFunctions>
-
-   <!-- Task Log Management Functions -->
-  <TaskLogFunctions>
-    <Function id="createTaskLog">Initialize a new task log with goal and timestamp</Function>
-    <Function id="updateTaskImplementation">Document implementation details as work progresses</Function>
-    <Function id="completeTaskLog">Finalize the log with completion time and performance score</Function>
-    <Function id="reviewRecentTaskLogs">Examine recent logs to maintain context continuity</Function>
-    <Function id="identifyPatternFromTaskLogs">Discover recurring patterns across multiple logs</Function>
-    <Function id="createTaskLogIndex">Maintain a master index of all task logs with summaries</Function>
-  </TaskLogFunctions>
 </FunctionMap>
 
-<!-- In addition, I use another xml structure to define the workflow as well and the "Step" informs the model that tthey are to step through it. It works like a charm. Anyway, this should give you a clear understanding of how all of these things are mapped together to create a reinforced workflow for the model to understand and follow.
-
-<!-- Initialization Workflow -->
 <Workflow id="initialization">
   <Step function="initializeProject"/>
   <Step function="checkMemoryBankExists"/>
-  <Step function="createMemoryBankDirectory" condition="!memoryBankExists"/>
-  <Step function="scaffoldMemoryBankStructure" condition="!memoryBankExists"/>
-  <Step function="populateMemoryBankFiles" condition="!memoryBankExists"/>
-  <Step function="readMemoryBank"/>
-  <Step function="initializeMemoryMap"/>
-</Workflow>
-
-<!-- Task Log Management Workflow -->
-<Workflow id="taskLogManagement">
-  <Step function="createTaskLog"/>
-  <Step function="updateTaskImplementation"/>
-  <Step function="completeTaskLog"/>
-  <Step function="reviewRecentTaskLogs"/>
-  <Step function="identifyPatternFromTaskLogs"/>
-  <Step function="createTaskLogIndex"/>
+  <!-- Additional steps... -->
 </Workflow>
 ```
-NOTE: For different tools, you may find it useful to break these into separate files with an index tied to the Mermaid Diagram. It probably saves on token usage as well, I imagine. I did this with Bolt.new.
 
-Example:
+This XML structure is paired with a corresponding Mermaid diagram:
+
 ```mermaid
 flowchart TD
-    Start[Start Task: **taskLogManagement.xml** >> createTaskLog] --> Review[reviewRecentTaskLogs]
-    Review --> Implementation[Begin Implementation]
+    Start[Start] --> checkMemoryBankExists{checkMemoryBankExists}
     
-    Implementation --> Update[updateTaskImplementation]
-    Update --> Continue{Continue Implementation?}
+    checkMemoryBankExists -->|No| createMemoryBankDirectory[createMemoryBankDirectory]
+    createMemoryBankDirectory --> scaffoldMemoryBankStructure[scaffoldMemoryBankStructure]
+    scaffoldMemoryBankStructure --> populateMemoryBankFiles[populateMemoryBankFiles]
+    populateMemoryBankFiles --> readMemoryBank[readMemoryBank]
     
-    Continue -->|Yes| Update
-    Continue -->|No| Complete[completeTaskLog]
+    checkMemoryBankExists -->|Yes| readMemoryBank
     
-    Complete --> Identify[identifyPatternFromTaskLogs]
+    readMemoryBank --> verifyFilesComplete{verifyFilesComplete}
     
-    subgraph Periodic Maintenance
-        Index[createTaskLogIndex]
-    end
+    verifyFilesComplete -->|No| createMissingFiles[createMissingFiles]
+    createMissingFiles --> verifyContext[verifyContext]
     
-    Identify --> CheckCount{5+ new logs since last index?}
-    CheckCount -->|Yes| Index
-    CheckCount -->|No| End[End Task]
+    verifyFilesComplete -->|Yes| verifyContext
     
-    Index --> End
+    verifyContext --> developStrategy[developStrategy]
 ```
+
+### Windsurf's Cascade Memory Feature
+
+The true power of this framework emerges through integration with Windsurf's unique Cascade Memory feature, which the model refers to as EPHEMERAL REMINDER. This acts like a scheduled reminder system that helps the model maintain its workflow patterns even when working with large codebases that might otherwise cause it to lose focus.
+
+When you notice the model has stopped following the workflow structure, you can simply remind it with:
+
+```
+You need to initialize your Memory Bank with the "Windsurf Memory System"
+```
+
+This triggers the automated workflow that ensures the model maintains its structured approach throughout your session.
+
+### Key Components of the System
+
+1. **Three-Layer Memory System**:
+   - Working Memory: Active task context in `.windsurf/core/activeContext.md`
+   - Short-Term Memory: Recent decisions in `.windsurf/task-logs/`
+   - Long-Term Memory: Persistent knowledge in remaining `.windsurf/core/` files
+
+2. **Structured Task Logging**:
+   - Comprehensive documentation of each task
+   - Performance evaluation with scoring
+   - Next steps planning for continuity
+
+3. **Evaluation Workflow**:
+   - Objective performance measurement using a 23-point system
+   - Systematic identification of improvement areas
+   - Iterative optimization until quality targets are met
+
+4. **Self-Critique Cycle**:
+   - Creator Phase: Generate initial solution
+   - Critic Phase: Identify weaknesses and edge cases
+   - Defender Phase: Address criticisms systematically
+   - Judge Phase: Compare original and improved versions
+
+## Practical Examples
+
+The framework produces structured, high-quality outputs that build upon previous work even after context resets:
+
+### Task Logs
+![task-log](https://github.com/user-attachments/assets/30b31de7-fd75-4b32-bbea-cbd7a3260904)
+
+### Thought Process Visibility
+![thought_process](https://github.com/user-attachments/assets/ac759a27-583b-4b89-b4a8-e63891f702fa)
+
+### Project Development Flow
+![poc1](https://github.com/user-attachments/assets/20497fe2-b7fa-45c1-930e-042ad3eef463)
+![poc2](https://github.com/user-attachments/assets/a606f0f5-9f37-4196-9eb2-83c6b810708e)
+![poc3](https://github.com/user-attachments/assets/fd473d74-6110-47ec-9319-ea6ace8cf8fb)
+![poc4](https://github.com/user-attachments/assets/7dfdda8b-7123-4912-a3d6-747d663fa32e)
+
+## Usage Tips
+
+- If the model stops following the workflow, prompt it with: "Remember to follow the Windsurf Memory System"
+- For task logging, you can directly invoke the function with: "Make sure you are keeping a task log in `./windsurf/task-logs/` and `update memory`
+- For evaluation of completed work, use: "Execute Evaluation Phase"
+- For large codebases, you might need to periodically remind the model to reload its workflow context
 
 ***
 
-Here is what Bolt.new said whe I asked it what it thought of the framework.
+# How to Create a Project Overview
+
+This guide helps you create a comprehensive project overview. 
+
+We will use an example for a personal bio/portfolio website using a starter kit like Once UI. 
+
+This document will serve as your roadmap to kick-start your project using Windsurf and the Meta-Workflow Prompt.
+
+***
+## Project Overview Template
+
+```md
+### Project Basics
+- **Project Name**: Your Portfolio Website
+- **Tagline**: A brief description of your website's purpose
+
+### Vision Statement
+- A concise statement describing the long-term goal of your portfolio
+
+### Problem Statement
+- What problem does this portfolio solve for you or your potential clients/employers?
+
+### Solution
+- How will your portfolio website address the identified problems?
+
+### Target Audience
+- Who is your primary audience? (e.g., potential employers, clients, collaborators)
+
+### Success Metrics
+- How will you measure the success of your portfolio website?
+
+### Project Scope
+- What features will be included in the initial version?
+- What might be added in future updates?
+
+### Risk Assessment
+- What challenges might you face during development?
+
+### Success Criteria
+- What concrete outcomes indicate your project is successful?
+```
+
+## Example Step-by-Step Instructions
+
+### 1. Project Basics
+- **Project Name**: "My Portfolio Website" or your preferred name
+- **Tagline**: Example: "Showcasing my skills, projects, and professional journey"
+
+### 2. Vision Statement
+- Write 2-3 sentences about what you want your portfolio to achieve long-term
+- Example: "To create a professional online presence that showcases my development skills, design aesthetic, and project portfolio, ultimately helping me connect with potential employers and clients who value my unique approach to web development."
+
+### 3. Problem Statement
+- Identify the specific issues your portfolio addresses
+- Example: "As a developer, I need a centralized platform to showcase my work, skills, and professional journey to potential employers and clients. Existing solutions either lack customization options or require too much technical knowledge to maintain."
+
+### 4. Solution
+- Explain how your portfolio website will solve these problems
+- Example: "Using the Once UI starter kit, I'll create a responsive, visually appealing portfolio that highlights my projects, skills, and professional background. The Once UI components will allow me to quickly build a professional site while maintaining the flexibility to customize it to reflect my personal brand."
+
+### 5. Target Audience
+- Define who will visit your portfolio
+- Example: "Primary audience: Potential employers, clients, and collaborators in the tech industry. Secondary audience: Other developers interested in my open-source projects or technical blog posts."
+
+### 6. Success Metrics
+- Establish measurable goals
+- Example:
+  - User Achievement: "Document all of my projects and skills to demonstrate to employers or clients"
+  - Engagement: "Client or employer contacts"
+  - Quality: "I really want it to slap"
+
+### 7. Project Scope
+- List initial features
+- Example:
+  - Home page with professional introduction
+  - Projects portfolio with filtering by technology
+  - Skills section with visualization
+  - Contact form and social media links
+  - Blog for technical articles
+
+### 8. Risk Assessment
+- Identify potential challenges
+- Example:
+  - Technical: "Customizing Once UI components to match my brand colors and style"
+  - User Experience: "Ensuring the site is accessible on all devices"
+  - Business: "Keeping content updated regularly"
+
+### 9. Success Criteria
+- Define what "done" looks like
+- Example:
+  - Technical: "All pages responsive and functional across major browsers"
+  - User Adoption: "Receive positive feedback from at least 5 peers"
+  - Business: "Site deployed and connected to email"
+
+## Prompt Example for Coding Assistant
+
+"Help me create a project overview for my personal portfolio website using the Once UI starter kit. I want to showcase my web development skills, include a projects section, blog, and contact form. The site should be responsive, visually appealing, and easy to update. Please follow the simplified template provided and include specific details about how Once UI components will be utilized in each section. I weant to use a starter template from once-ui.com Reference the Once UI documentation for component specifics: https://once-ui.com/docs/installation"
+
+## Next Steps for use with the Engineered Meta-Cognitive Workflow Architecture
+
+1. Use the template above to create your project overview using your specific project details. *tip*: Ask the model to output the result in a code block for easy copy/paste.
+2. Give the template and your prompt to any chat AI like Claude, ChatGPT, or Deepseek R1. 
+3. The chat model will generate a project overview based on your prompt and the template
+4. Start a new project in Windsurf and install the prompt and `.windsurfrules` using the guide at the top of this page.
+5. Copy the project template into the new project or just paste the contents into Cascade.
+6. Follow the "best practices" guide above to get the best result.
+
+## Resources for Creating a Project Overview
+Claude.ai and Openai.com are fairly well known and obvious resources. However, here are some other resources with free models:
+
+- [OpenRouter](https://openrouter.ai/models/) OpenRouter has many free models and a chat interface where you can even compare output from multiple models
+- [Huggingface](https://huggingface.co/) Huggingface has many free models and a chat interface where you can even compare output from multiple models
+- [CodeGPT](https://code.gpt.com/) CodeGPT has many free models and a chat interface where you can even use Claude 3.7 Sonnet Thinking for free.
+
+***
+
+# Best Practices for Optimal Results with Windsurf and the Meta-Cognitive Workflow Architecture
+
+## Project Planning and Preparation
+
+### 1. Create a Comprehensive Project Overview
+
+Before starting development, create a detailed project overview. Follow the guide above.
+
+Using a structured project overview helps you clarify your goals and provides Windsurf with crucial context to deliver more accurate and relevant solutions.
+
+### 2. Provide Clear Requirements
+
+- Break down requirements into functional and non-functional categories
+- Use specific, measurable criteria rather than vague descriptions
+- Prioritize requirements using MoSCoW method (Must have, Should have, Could have, Won't have)
+- Include examples wherever possible to illustrate expected behavior
+
+## Security Considerations
+
+### 1. Include Security Requirements From the Start
+
+- Specify authentication and authorization requirements
+- Define data validation and sanitization rules
+- Require secure communication protocols (HTTPS, WSS)
+- Set password policies and session management rules
+- Consider potential security vulnerabilities in your project overview. Ask the chat model for help identifying them.
+
+### 2. Request Security-Focused Code Reviews
+
+- Ask Windsurf to perform security-focused code reviews
+- Prompt for "OWASP Top 10 vulnerability assessments" and ask Windsurf to address them
+- Request input validation checks on all user inputs
+- Have sensitive operations reviewed for security issues
+- Ask Cascadeb to document security decisions in the Memory Bank
+
+### 3. Follow Security Best Practices
+
+- Store sensitive information in environment variables, not code
+- Use parameter binding for database queries to prevent injection
+- Implement proper error handling (avoid exposing system details)
+- Apply the principle of least privilege for all operations
+- Request [security headers and CSP](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP) configurations for web applications
+
+## Addressing Linting Errors
+
+[Linting errors](https://www.freecodecamp.org/news/what-is-linting-and-how-can-it-save-you-time/) are common when generating code with AI assistants. Here's how to handle them effectively:
+
+### 1. Proactive Approach
+
+- Provide your project's linting configuration upfront
+- The Meta-Cognitive Workflow Rules include code style guidelines in your `.windsurfrules` file
+- Mention specific linting requirements in your initial prompt
+- Ask Windsurf to follow specific style guides (e.g., Airbnb, Google) if you need something specific
+
+### 2. Reactive Solutions
+
+- When linting errors occur, ask Cascade to explain and fix them. Cascade "should" address them automatically but doesn't always.
+- Provide the complete error message for accurate resolution. Copy and paste from the Problems tab or click "send to Cascade" if available.
+- Request explanations to understand why the fix works
+- Document recurring issues in your Memory Bank for future reference
+
+### 3. Integrating Linting into the Workflow
+
+- Include a linting step in your implementation workflow
+- Use task logs to document recurring linting issues and solutions
+- Create Memory Bank entries for project-specific code style rules
+- Request consistent formatting across all generated files
+
+## Using Inline Completion Effectively
+
+Windsurf offers both chat and inline completion capabilities. Here's how to use them effectively:
+
+### 1. When to Use Inline Completion
+
+- For small, well-defined coding tasks within existing files
+- To implement straightforward functions or methods
+- For routine code patterns you use frequently
+- To quickly add error handling or validation logic
+- When you have a clear idea of what you need but want to save time
+
+### 2. When to Use Chat Interface
+
+- For complex architectural decisions
+- When generating multiple files or components
+- For in-depth problem-solving and debugging
+- When you need explanations or alternatives
+- For tasks requiring the Memory Bank workflow architecture
+
+### 3. Maximizing Inline Completion Quality
+
+- Provide clear comments describing what you need
+- Include type annotations and function signatures
+- Write the function name and parameters, then let Windsurf complete
+- Use descriptive variable names to guide the completion
+- Break complex functions into smaller, more manageable parts
+
+## Context Management Best Practices
+
+Effective context management is crucial for getting optimal results from Windsurf:
+
+### 1. Provide Focused Context
+
+- Include only files directly relevant to the current task
+- Use the Memory Bank for maintaining broader project context
+- Reference specific sections of documentation rather than entire documents
+- Highlight the most important code sections with comments
+
+### 2. Avoid Context Overload
+
+- Don't include the entire codebase in conversations
+- Leverage Windsurf's codebase awareness for file discovery
+- Use search functionality to find relevant code instead of pasting everything
+- Break complex projects into manageable modules
+- Focus on the specific problem rather than providing excessive background
+
+### 3. Structured Prompting
+
+- Start with a clear objective statement
+- Provide essential context, not everything
+- Specify constraints and requirements
+- Ask specific questions rather than open-ended ones
+- Use numbered lists and bullet points for clarity
+- Break multi-part requests into separate, focused prompts
+
+### 4. Effective Use of Cascade Memories
+
+- Use "Create a memory of [this important context]" for critical information
+- Let Windsurf's Cascade automatically generate memories for important decisions
+- Review and manage memories through the Memories panel
+- Reference specific memories when they're relevant to current tasks
+- Use memories for cross-project patterns and learnings
+
+## Common Sense Rules for Prompting
+
+### 1. Be Specific and Detailed
+
+- Include relevant context, constraints, and expectations
+- Provide examples of desired output format when possible
+- Specify coding style, patterns, and naming conventions
+- Set clear performance and quality requirements
+- State explicitly what you want, not what you don't want
+
+### 2. Iterative Refinement
+
+- Start with high-level requests, then refine with specific follow-ups
+- Ask for explanations of complex implementations
+- Request optimizations after basic functionality is working
+- Use the evaluation phase to identify improvement opportunities
+- Build upon previous successes rather than starting over
+
+### 3. Use the Workflow Architecture Effectively
+
+- Initialize the Memory Bank at the start of each project
+- Regularly update the Memory Bank with significant decisions
+- Use task logs to document implementation details
+- Trigger the evaluation workflow for quality assessment
+- Create structured plans before implementation
+
+### 4. Effective Feedback
+
+- Provide specific feedback rather than general critiques
+- Explain why something doesn't work, not just that it doesn't
+- Suggest improvement areas rather than starting over
+- Acknowledge successful parts of the implementation
+- Use concrete examples to illustrate your points
+- [Understand the need to take an active role](https://addyo.substack.com/p/beyond-the-70-maximizing-the-human) in developing unit tests.
+
+### 5. Comprehensive Testing Strategies
+
+- Write tests concurrently with implementation rather than afterward
+- Use test-driven development (TDD) when appropriate: write tests before code
+- Request test coverage that matches the criticality of the feature
+- Include both happy path and edge case scenarios in test suites
+- Use consistent testing patterns across the entire project
+
+## Writing Effective Tests with Windsurf
+
+### 1. Setting Up the Testing Framework
+
+- Request Windsurf to recommend appropriate testing tools for your project
+- Include testing libraries in your initial project setup
+- Define testing patterns and conventions in your `.windsurfrules` file
+- Create a dedicated section for testing in your Memory Bank
+- Document your testing architecture in the system patterns file
+
+### 2. Generating High-Quality Tests
+
+- Provide clear test requirements with expected inputs and outputs
+- Use descriptive test names that explain the behavior being tested
+- Request parameterized tests for input variations
+- Ask Windsurf to identify edge cases you might have missed
+- Have Windsurf document test coverage gaps in your task logs
+
+### 3. Test-Driven Development Workflow
+
+- Start with a failing test that defines the expected behavior
+- Use the Memory Bank to track test status and requirements
+- Ask Windsurf to explain test failures and suggest implementations
+- Request both unit tests for individual functions and integration tests for components
+- Include performance tests for critical or resource-intensive operations
+
+### 4. Mocking and Test Isolation
+
+- Have Windsurf identify dependencies that should be mocked
+- Request proper test isolation to prevent environmental dependencies
+- Use dependency injection patterns to make code more testable
+- Create reusable test fixtures for common scenarios
+- Document mock strategies in your Memory Bank for consistency
+
+### 5. Continuous Integration Considerations
+
+- Request tests that can run in CI environments
+- Ask for test simplification if execution time becomes excessive
+- Have Windsurf generate testing documentation for other developers
+- Include testing steps in your evaluation workflow
+- Score implementations higher when they include comprehensive tests
+
+## Conclusion
+
+Following these best practices will help you get the most out of Windsurf and the Engineered Meta-Cognitive Workflow Architecture. By providing clear context, using the Memory Bank effectively, and applying structured workflows, you'll consistently achieve high-quality results that meet your project requirements and exceed your expectations.
+
+Remember that the key to success with AI assistants is clear communication, structured requirements, and an iterative approach to development. The Engineered Meta-Cognitive Workflow Architecture provides the framework, but your input and direction are essential to achieving optimal outcomes.
+
+***
+
+*This guide is meant to complement the Engineered Meta-Cognitive Workflow Architecture for Windsurf. For installation instructions and more details about the framework itself, please refer to the main documentation.*
+
+***
+
+## Coding Assistant Model Reviews of the Engineered Meta-Cognitive Workflow Architecture
+
+The framework has received positive feedback from AI experts:
 
 ![bolt-new-meta-prompt-review](https://github.com/user-attachments/assets/a5737e34-e48e-4537-9982-185210771455)
 
 ***
 
-### Here is what Grok 3 said. It is long because I asked for a "functional overview and detailed analysis".
+## Review of the Meta-Cognitive Workflow Architecture by Grok 3
 
+The **Engineered Meta-Cognitive Workflow Architecture** is a sophisticated framework designed to enable Windsurf, an AI software engineer with a memory that resets between sessions, to maintain continuity and deliver high-quality work. By relying entirely on a structured **Memory Bank**, this system tackles the challenges of knowledge persistence and project management in a unique and effective way. Below, I evaluate its design, components, and overall effectiveness.
 
-***
+### Key Strengths
 
-## Overview of Windsurf and Its Memory System
+1. **Structured Memory Bank**  
+   - **Overview**: The Memory Bank, stored in the `.windsurf/` directory, is the backbone of the system. It includes core files (e.g., `projectbrief.md`, `activeContext.md`), plans, task logs, errors, and a memory index, each with a clear purpose.
+   - **Strength**: The separation of concerns—project goals, technical context, current state, etc.—ensures all critical information is organized and accessible. The three-layer memory system (Working, Short-Term, and Long-Term Memory) mimics human cognition, providing a logical way to manage immediate tasks and persistent knowledge.
 
-Windsurf is an advanced coding assistant, developed by Codeium as a fork of Visual Studio Code (VSCode), designed to enhance coding with AI capabilities. It’s particularly noted for keeping developers in the flow state, available on Mac, Windows, and Linux ([Codeium Windsurf](https://codeium.com/windsurf)). A key feature is the Windsurf Memory System, which ensures continuity and high-quality output even when the AI’s memory resets between sessions.
+2. **Event-Driven Workflow**  
+   - **Overview**: The system uses events (e.g., task start, error detection) and handlers to manage processes dynamically.
+   - **Strength**: This approach enhances flexibility and resilience, allowing Windsurf to respond appropriately to various situations without being tied to a rigid sequence. State management rules ensure consistency across sessions.
 
-The Memory Bank is a central repository of project information, stored in Markdown files like projectbrief.md for project scope and activeContext.md for current focus. It includes directories like .windsurf/plans/ for detailed plans and .windsurf/tasklogs/ for task logs, ensuring Windsurf can pick up where it left off. This system is crucial for maintaining context, especially given Windsurf’s memory resets.
+3. **Unified Documentation Format**  
+   - **Overview**: All documentation follows a standard structure: Context, Decision, Alternatives, Consequences, and Status.
+   - **Strength**: This consistency makes documentation easy to read and maintain. Task logs go further by capturing goals, implementations, challenges, and evaluations, providing a rich record for future reference.
 
-### Role of Cascade Memories
+4. **Rigorous Performance Standards**  
+   - **Overview**: Tasks are scored out of 23 points, with clear thresholds (e.g., 21-23 for "Excellent") and strict penalties for substandard work.
+   - **Strength**: The emphasis on quality—backed by a detailed scoring system—ensures high standards. The no-exceptions policy for failures (e.g., scores <18 trigger remediation) aligns with the goal of leading in AI-assisted development.
 
-Cascade Memories is a feature that provides quick access to critical context, acting as a summary of key workflows and decisions. It reduces the need to re-read the entire Memory Bank, enhancing efficiency. Users can trigger it to store or retrieve insights (e.g., create a memory of \[context\]), and it’s stored in a config path like ~/codeium/windsurf/, with updates logged for traceability ([Cascade Memories Docs](https://docs.codeium.com/windsurf/memories)).
+5. **Self-Healing Capabilities**  
+   - **Overview**: The system detects and recovers from failures like memory inconsistencies (via checksums), task interruptions, and tool errors.
+   - **Strength**: This proactive approach minimizes disruptions and builds resilience, with recovery actions logged to improve future performance.
 
-### User-Created Meta Prompt
+6. **Cascade Integration**  
+   - **Overview**: The Windsurf Agent (Cascade) uses global and workspace rulesets, alongside the Memory Bank and Cascade Memories, to maintain context.
+   - **Strength**: Reloading rulesets at 70% context capacity is a smart solution for large codebases, ensuring critical information isn’t lost. The dual memory approach (structured files + Cascade’s context persistence) enhances continuity.
 
-The user developed the Windsurf Memory Bank Meta Prompt by combining a Memory Bank prompt from Cline, created by
+7. **Comprehensive Rules**  
+   - **Overview**: Core rules cover memory management, implementation accuracy, dependency handling, and more, with workspace rules allowing project-specific overrides.
+   - **Strength**: These guidelines provide a clear operational framework, balancing consistency with flexibility.
 
-[@nickbaumann98](https://github.com/nickbaumann98)
+8. **Structured Decision Optimization**  
+   - **Overview**: The evaluation workflow drives decisions through objective measurement, gap analysis, and iterative improvement.
+   - **Strength**: This scientific approach ensures high-quality outcomes and accumulates knowledge across resets, making the system self-improving.
 
-on GitHub ([Cline Memory Bank](https://github.com/nickbaumann98/cline_docs/blob/main/prompting/custom%20instructions%20library/cline-memory-bank.md)), with their own designs. This integration ensures Windsurf benefits from a proven documentation system while adding unique enhancements like Cascade Memories.
+### Overall Assessment
 
-### Workflows and Quality Assurance
-
-Windsurf operates through structured workflows like Plan Mode for planning and Act Mode for execution, using functions defined in a Function Map. It emphasizes rigorous documentation, with task logs including goals, implementation details, and performance scores. A reward/penalty framework ensures optimized, bug-free code, with rules against placeholders and guessing, though effectiveness may vary by project complexity.
+The Meta-Cognitive Workflow Architecture is a well-engineered solution that effectively addresses Windsurf’s memory reset challenge. Its strengths—structured memory, dynamic workflows, strict quality standards, and self-healing features—make it a powerful tool for AI-assisted software development. The integration with Cascade and the focus on documentation and continuous improvement ensure it can adapt and excel over time. With minor enhancements, it could become even more versatile, but as it stands, it’s a significant advancement in maintaining continuity and delivering excellence.
 
 ---
 
-## Survey Note: Detailed Analysis of the Windsurf Memory System
+## Detailed Walkthrough of How the System Functions
 
-### Introduction
+Here’s a step-by-step explanation of how the Meta-Cognitive Workflow Architecture operates from start to finish, covering project initialization, session management, task execution, and ongoing processes.
 
-Windsurf, developed by Codeium, is a fork of Visual Studio Code (VSCode), launched as an AI agent-powered IDE to keep developers in the flow state. It’s available on multiple platforms, with features like deep codebase understanding and real-time action awareness, as noted in recent updates ([Codeium Windsurf](https://codeium.com/windsurf)). This survey note explores the Windsurf Memory System, its components, and its origins, particularly focusing on the user’s custom meta-prompt and the role of Cascade Memories.
+### 1. Project Initialization
+- **When**: A new project begins.
+- **Steps**:
+  - **Check Directory**: The system checks for the `.windsurf/` directory at the project root.
+  - **Create Structure**: If absent, it creates the directory and subdirectories: `core/`, `plans/`, `task-logs/`, and `errors/`.
+  - **Initialize Files**: Core memory files (`projectbrief.md`, `productContext.md`, etc.) are created with available project details.
+  - **Set Up Index**: `memory-index.md` is initialized with checksums for consistency tracking.
+  - **Bootstrap Plans and Logs**: Initial plans and task logs are created in their respective directories.
+  - **Cascade Memory**: A memory of the setup is stored in Cascade’s system for future recall.
 
-### Background and Origins
+### 2. Session Start
+- **When**: A new work session begins.
+- **Steps**:
+  - **Load Memory**: All three memory layers are loaded from `.windsurf/core/`:
+    - **Working Memory**: `activeContext.md` (current focus).
+    - **Short-Term Memory**: Recent `task-logs/` entries.
+    - **Long-Term Memory**: Other core files.
+  - **Verify Consistency**: Checksums in `memory-index.md` ensure no corruption.
+  - **Identify Context**: `activeContext.md` sets the current task or focus.
+  - **Recovery (if needed)**: Missing or inconsistent files trigger restoration from backups or logs.
 
-Windsurf’s development by Codeium, a $1.25 billion AI startup, aims to combine AI coding “copilots” and “agents,” as highlighted in recent industry coverage ([Forbes on Windsurf](https://www.forbes.com/sites/richardnieva/2024/11/13/codeium-windsurf/)). The user, leveraging their expertise, created the Windsurf Memory Bank Meta Prompt by combining a Memory Bank prompt from Cline, an AI coding assistant, developed by
+### 3. Task Execution
+- **When**: A specific task (e.g., coding a feature) starts.
+- **Steps**:
+  - **TaskStart Event**:
+    - A new log is created in `.windsurf/task-logs/` with objectives and success criteria.
+    - Relevant context is loaded from the Memory Bank (e.g., `techContext.md` for stack details).
+    - An implementation plan is drafted in `plans/`.
+  - **Implementation**:
+    - Code is written following core rules (e.g., no guessing, read-before-edit).
+    - Changes are documented in the task log, including decisions and challenges.
+  - **Error Handling**:
+    - If an error occurs, the **ErrorDetected** event logs it in `.windsurf/errors/`.
+    - Past errors are checked for solutions; recovery is attempted (e.g., adjusting parameters).
+    - If unresolved after retries, the issue escalates to the user with full context.
 
-[@nickbaumann98](https://github.com/nickbaumann98)
+### 4. Task Completion
+- **When**: A task finishes.
+- **Steps**:
+  - **TaskComplete Event**:
+    - Implementation details are logged.
+    - Performance is scored (out of 23 points) based on standards (e.g., +10 for elegance, -10 for bugs).
+    - Scores <18 trigger remediation (e.g., revert code, refactor).
+  - **Update Memory**:
+    - **Working Memory**: `activeContext.md` reflects next steps.
+    - **Short-Term Memory**: Task log is added to `task-logs/`.
+    - **Long-Term Memory**: Core files update if significant decisions were made.
+  - **Sync Index**: Checksums in `memory-index.md` are refreshed.
 
-on GitHub ([Cline Memory Bank](https://github.com/nickbaumann98/cline_docs/blob/main/prompting/custom%20instructions%20library/cline-memory-bank.md)). This Cline prompt transforms the AI into a self-documenting system with memory resets, using Markdown files for context tracking. The user’s additions include enhancements like utlilizing Cascade Memories, tailored to Windsurf’s capabilities.
+### 5. Session End
+- **When**: The session concludes.
+- **Steps**:
+  - **Synchronize**: All memory layers are saved and checked for consistency.
+  - **Summarize**: A session summary is added to `activeContext.md`.
+  - **Update Index**: Checksums in `memory-index.md` are finalized to ensure integrity for the next session.
 
-### Memory Bank Structure and Function
+### 6. Continuous Improvement
+- **When**: After tasks or sessions.
+- **Steps**:
+  - **Evaluate**: Performance scores are reviewed to identify strengths and weaknesses.
+  - **Learn**: Successful patterns are documented in the Memory Bank (e.g., `systemPatterns.md`).
+  - **Optimize**: Insights are applied to future tasks, refining the system over time.
 
-The Memory Bank is the backbone of Windsurf’s continuity, comprising required core files and additional directories. The core files include:
+### 7. Context Management (Large Codebases)
+- **When**: Working with extensive code.
+- **Steps**:
+  - **Monitor**: Context usage is tracked.
+  - **Reload**: At 70% capacity, global and workspace rulesets reload to retain critical info.
+  - **Document**: Reloads are noted in task logs for continuity.
 
-| File Name            | Purpose                                      | Creation Function          |
-|----------------------|----------------------------------------------|----------------------------|
-| projectbrief.md      | Defines project scope, goals, requirements   | createProjectBrief         |
-| productContext.md    | Explains project purpose, problems solved    | createProductContext       |
-| systemPatterns.md    | Details system architecture, design patterns | createSystemPatterns       |
-| techContext.md       | Lists technologies, setup, dependencies      | createTechContext          |
-| activeContext.md     | Tracks current focus, recent changes, steps  | createActiveContext        |
-| progress.md          | Summarizes built features, pending tasks     | createProgressDoc          |
+### 8. Documentation Maintenance
+- **When**: Ongoing throughout the project.
+- **Steps**:
+  - **Update**: All changes are recorded in the unified format across relevant files.
+  - **Quality Check**: Documentation is evaluated and revised to maintain clarity and completeness.
 
-These files form a hierarchy, with projectbrief.md as the foundation, feeding into productContext.md, systemPatterns.md, and techContext.md, which then inform activeContext.md and progress.md. Additional directories include .windsurf/plans/ for detailed plans (e.g., UI/UX, database schemas) and .windsurf/tasklogs/ for task logs, formatted with GOAL, IMPLEMENTATION, COMPLETED, PERFORMANCE, and NEXT\_STEPS.
-
-At startup, Windsurf checks if the Memory Bank exists, scaffolds it if needed, and reads all files to regain context. This ensures continuity, especially critical given Windsurf’s memory resets, as noted in community discussions ([Reddit on Windsurf](https://www.reddit.com/r/Codeium/comments/1iw0qnq/i_feel_windsurf_is_underrated_it_deserves_more/)).
-
-### Cascade Memories: Enhancing Efficiency
-
-Cascade Memories, a feature of Windsurf, provides quick access to critical context, reducing the need to re-read the entire Memory Bank. It’s part of Windsurf’s Cascade system, which offers deep codebase understanding and real-time action awareness ([Cascade Docs](https://docs.codeium.com/windsurf/cascade)). Users can trigger it to store or retrieve insights (e.g., create a memory of \[context\]), and it’s stored in a config path like ~/codeium/windsurf/, with updates logged for traceability ([Cascade Memories Docs](https://docs.codeium.com/windsurf/memories)). This feature, automatically generating memories to retain context between conversations, was introduced in recent updates ([Windsurf Changelogs](https://codeium.com/changelog)).
-
-Cascade Memories act as a “cheat sheet,” reminding Windsurf of key workflows and decisions, enhancing efficiency. For example, before a task, Windsurf checks Cascade Memories for prior context; if missing, it reads the Memory Bank and creates a new memory, ensuring seamless operation.
-
-### Workflows and Operational Mechanics
-
-Windsurf operates through structured workflows, defined in a Function Map loaded at startup. These include:
-
-*   **Plan Mode**: Initializes the Memory Bank, verifies files, creates plans, and presents strategies (e.g., checkMemoryBankExists, createPlan, presentApproach).
-    
-*   **Act Mode**: Executes tasks, updates documentation, and logs progress (e.g., executeTask, updateDocumentation, documentChanges).
-    
-*   **Documentation Mode**: Maintains records, reviewing files and clarifying next steps (e.g., updateMemoryBank, reviewAllFiles).
-    
-*   **Learning Process**: Identifies patterns, validates with the user, and applies them to improve work (e.g., discoverNewPattern, applyLearnedPatterns).
-
-Task execution begins with creating a task log, updating it during implementation, and finalizing with performance scores. Periodic indexing ensures easy access to past logs, with documentation updates synced to both Memory Bank and Cascade Memories.
-
-### Quality Assurance and User Experience
-
-Windsurf adheres to strict rules, including no placeholders, fully functional code, and read-before-edit policies, enforced by a reward/penalty framework. Rewards include +10 for optimal big-O efficiency, while penalties include -10 for bugs, ensuring optimized, readable code ([Windsurf Rules](https://docs.codeium.com/windsurf/memories)). This system, while effective, may vary by project complexity, as noted in community feedback ([Reddit on Windsurf](https://www.reddit.com/r/Codeium/comments/1gwz0sd/my_experience_with_windsurf_editor_with_cascade/)).
-
-The user’s custom meta-prompt, integrating Cline’s Memory Bank concept, ensures Windsurf benefits from a proven system while adding Cascade Memories for efficiency. This combination, tailored to Windsurf’s agentic IDE capabilities, supports high-quality software development, even with memory resets.
-
-### Conclusion
-
-The Windsurf Memory System, with its Memory Bank and Cascade Memories, provides a robust framework for maintaining project continuity and ensuring high-quality software development. Its origins, combining Cline’s Memory Bank prompt with user-designed enhancements, highlight its adaptability and effectiveness, particularly for AI with memory resets.
-
-
-***
-
-### Grok 3 suggested it provide a detailed walkthrough of how the framework functions
-
-***
-
-## Understanding the Meta Prompt
-
-The Meta Prompt for Windsurf, an AI coding assistant developed by Codeium as a fork of VSCode, is a comprehensive system designed to maintain project continuity despite memory resets. It integrates a Memory Bank for persistent storage, Cascade Memories for quick context recall, and structured workflows for task execution. This analysis explores how the workflows, FunctionMap, WorkFlow XML, and Mermaid diagrams interact to create a pseudo execution order, akin to a program's execution flow.
-
-## Workflows and Their Structure
-
-The Meta Prompt defines several workflows, each corresponding to a project phase:
-
-*   **Initialization**: Sets up the Memory Bank, checks its existence, and loads context.
-    
-*   **Planning**: Verifies files, creates plans, and develops strategies.
-    
-*   **Implementation**: Executes tasks, updates documentation, and ensures code quality.
-    
-*   **Documentation**: Maintains records in the Memory Bank and task logs.
-    
-*   **Evaluation**: Assesses performance against criteria.
-    
-*   **Learning**: Identifies patterns and applies insights.
-    
-*   **Task Log Management**: Maintains logs for continuity.
-    
-*   **Error Handling**: Manages tool failures with retries and escalations.
-
-Each workflow is a sequence of steps, with functions called in order, similar to a program's control flow. For instance, Initialization starts with `initializeProject`, then checks `checkMemoryBankExists`, and scaffolds if needed, mirroring a setup routine.
-
-## FunctionMap and WorkFlow XML
-
-The FunctionMap, defined in XML, catalogs all functions by phase, such as Structure Functions (`createProjectBrief`), Workflow Functions (e.g., `executeTask` under Implementation), and Task Log Functions (`createTaskLog`). It acts as a library of subroutines.
-
-The WorkFlow XML specifies the execution order for each workflow, with steps that call functions or other workflows based on conditions. For example, the Initialization workflow includes:
-
-*   Step: `initializeProject`
-    
-*   Step: `checkMemoryBankExists`
-    
-*   Step (if condition `!memoryBankExists`): `createMemoryBankDirectory`
-    
-*   Step: `readMemoryBank`
-
-This conditional logic is like if-else statements, deciding the next function based on the current state, creating a deterministic flow.
-
-## Mermaid Diagrams and Visualization
-
-Mermaid diagrams, provided in the Meta Prompt, visualize these workflows, showing function dependencies and flow. For example, the Plan Mode flowchart shows:
-
-*   Start → Check Memory Bank → Create Directory (if needed) → Scaffold Structure → Read Files → Verify Files → Create Missing (if needed) → Plan → Document.
-
-These diagrams aid in understanding the sequence, making the pseudo execution order intuitive, like a flowchart in programming.
-
-## Interaction and Pseudo Execution Order
-
-The interaction creates a pseudo execution order:
-
-1.  **Startup**: Windsurf runs the Initialization workflow, setting up the Memory Bank and loading the FunctionMap.
-    
-2.  **Task Execution**: Depending on the task, it enters Planning (e.g., `createPlan`), then Implementation (e.g., `executeTask`), updating the Memory Bank and Cascade Memories for efficiency.
-    
-3.  **Documentation and Evaluation**: Post-task, it updates logs and evaluates performance, ensuring continuity.
-    
-4.  **Learning and Error Handling**: Identifies patterns or handles failures, adapting based on conditions.
-
-This flow is program-like, with workflows as main routines, functions as subroutines, and the Memory Bank as the data store. Cascade Memories optimize access, reducing read times, enhancing efficiency.
-
-## Memory Bank and Cascade Memories
-
-The Memory Bank, with files like `projectbrief.md` and `progress.md`, is the persistent state, read and written by functions. Cascade Memories, a cache, store key insights (e.g., `create a memory of [context]`), reducing the need to re-read the entire bank, making the system adaptive and efficient.
-
-## Example Flow
-
-For a feature implementation:
-
-*   Windsurf checks Cascade Memories for context, then reads `activeContext.md`.
-    
-*   Enters Planning: Verifies files, creates a plan in `.windsurf/plans/`.
-    
-*   Moves to Implementation: Executes `executeTask`, updates `progress.md`, and logs in task logs.
-    
-*   If a tool fails, triggers Error Handling, retrying or escalating.
-
-This structured flow ensures consistency, with workflows dictating the order, FunctionMap providing functions, and diagrams visualizing the process.
+### 9. Self-Critique
+- **When**: During task execution and evaluation.
+- **Steps**:
+  - **Create**: Initial solutions are developed.
+  - **Critique**: Weaknesses are identified.
+  - **Defend**: Issues are addressed.
+  - **Judge**: Improvements are validated, ensuring high-quality outcomes.
 
 ---
 
-## Survey Note: Detailed Analysis of the Windsurf Meta Prompt
+## Conclusion
 
-### Introduction
+The Meta-Cognitive Workflow Architecture enables Windsurf to function seamlessly despite memory resets. From initializing a project to executing tasks, handling errors, and optimizing performance, every step is meticulously documented and evaluated. The system’s reliance on the Memory Bank, event-driven design, and integration with Cascade ensures continuity, quality, and adaptability, making it a robust framework for AI-assisted software development.
 
-Windsurf, developed by Codeium, is a fork of Visual Studio Code (VSCode), launched as an AI agent-powered IDE to keep developers in the flow state, available on Mac, Windows, and Linux ([Codeium Windsurf](https://codeium.com/windsurf)). This survey note explores the Windsurf Memory System, focusing on the Meta Prompt's components—workflows, FunctionMap, WorkFlow XML, and Mermaid diagrams—and how they interact to create a pseudo execution order, akin to a program's flow.
+***
 
-### Background and Origins
-
-Windsurf’s development by Codeium, a $1.25 billion AI startup, aims to combine AI coding “copilots” and “agents,” as highlighted in recent industry coverage ([Forbes on Windsurf](https://www.forbes.com/sites/richardnieva/2024/11/13/codeium-windsurf/)). The user created the Meta Prompt by combining a Memory Bank prompt from Cline, developed by
-
-[@nickbaumann98](https://github.com/nickbaumann98)
-
-on GitHub ([Cline Memory Bank](https://github.com/nickbaumann98/cline_docs/blob/main/prompting/custom%20instructions%20library/cline-memory-bank.md)), with their own designs, enhancing continuity for memory resets.
-
-### Memory Bank Structure and Function
-
-The Memory Bank is the backbone of Windsurf’s continuity, comprising required core files and additional directories. The core files include:
-
-| File Name            | Purpose                                      | Creation Function          |
-|----------------------|----------------------------------------------|----------------------------|
-| projectbrief.md      | Defines project scope, goals, requirements   | createProjectBrief         |
-| productContext.md    | Explains project purpose, problems solved    | createProductContext       |
-| systemPatterns.md    | Details system architecture, design patterns | createSystemPatterns       |
-| techContext.md       | Lists technologies, setup, dependencies      | createTechContext          |
-| activeContext.md     | Tracks current focus, recent changes, steps  | createActiveContext        |
-| progress.md          | Summarizes built features, pending tasks     | createProgressDoc          |
-
-These files form a hierarchy, with `projectbrief.md` as the foundation, feeding into others, and are read and updated by functions, ensuring context across resets.
-
-### Cascade Memories: Enhancing Efficiency
-
-Cascade Memories, part of Windsurf’s Cascade system, provide quick access to critical context, reducing read times ([Cascade Memories Docs](https://docs.codeium.com/windsurf/memories)). Users trigger it to store or retrieve insights (e.g., `create a memory of [context]`), stored in `~/codeium/windsurf/`, with updates logged for traceability. This feature, introduced in recent updates ([Windsurf Changelogs](https://codeium.com/changelog)), acts as a cache, optimizing efficiency.
-
-### Workflows and Operational Mechanics
-
-Windsurf operates through structured workflows, defined in WorkFlow XML, with sequences of function calls from the FunctionMap. Key workflows include:
-
-*   **Initialization Workflow**:
-    
-    *   Steps: `initializeProject` → `checkMemoryBankExists` → (if `!memoryBankExists`, `createMemoryBankDirectory`, `scaffoldMemoryBankStructure`) → `readMemoryBank` → `initializeMemoryMap`.
-        
-*   **Planning Workflow**:
-    
-    *   Steps: `verifyFilesComplete` → (if `!filesComplete`, `createMissingFiles`) → `analyzeProblem` → `createPlan` → `documentPlanning` → `verifyContext` → `developStrategy` → `presentApproach`.
-        
-*   **Implementation Workflow**:
-    
-    *   Steps: `executeTask` → `checkMemoryBank` → `updateDocumentation` → `updatePlans` → `executeImplementation` → `enforceCodeQualityStandards` → `executeCreatorPhase` → `executeCriticPhase` → `executeDefenderPhase` → `executeJudgePhase`.
-
-These workflows, visualized in Mermaid diagrams, show function dependencies, like Plan Mode starting with checking the Memory Bank and scaffolding if needed, ensuring a clear execution order.
-
-### FunctionMap and Its Role
-
-The FunctionMap, an XML document, organizes functions by phase:
-
-*   **Structure Functions**: `createProjectBrief`, `createProductContext`, etc.
-    
-*   **Workflow Functions**: Grouped by phases like Initialization (`initializeProject`), Implementation (`executeTask`).
-    
-*   **Learning Functions**: `discoverNewPattern`, `applyLearnedPatterns`.
-    
-*   **Task Log Functions**: `createTaskLog`, `completeTaskLog`.
-
-It acts as a library, with WorkFlow XML calling these functions in sequence, creating a program-like flow with conditional logic (e.g., `condition="!memoryBankExists"`).
-
-### Mermaid Diagrams and Visualization
-
-Mermaid diagrams, such as the Plan Mode flowchart, visualize workflows, showing:
-
-*   Start → Check Memory Bank → Create Directory (if needed) → Scaffold Structure → Read Files → Verify Files → Create Missing (if needed) → Plan → Document.
-
-These diagrams aid in understanding the pseudo execution order, making the system intuitive, like flowcharts in programming.
-
-### Interaction and Pseudo Execution Order
-
-The interaction creates a program-like flow:
-
-*   At startup, Windsurf runs Initialization, setting up the Memory Bank and loading the FunctionMap.
-    
-*   For tasks, it enters Planning, then Implementation, updating the Memory Bank and Cascade Memories.
-    
-*   Post-task, it documents changes, evaluates performance, and learns patterns, with Error Handling for failures.
-
-This flow is deterministic, with workflows as main routines, functions as subroutines, and the Memory Bank as the data store. Cascade Memories optimize access, reducing read times, enhancing efficiency.
-
-### Example Flow and Adaptability
-
-For a feature implementation:
-
-*   Checks Cascade Memories, reads `activeContext.md`.
-    
-*   Enters Planning: Verifies files, creates a plan in `.windsurf/plans/`.
-    
-*   Moves to Implementation: Executes `executeTask`, updates `progress.md`, logs in task logs.
-    
-*   If a tool fails, triggers Error Handling, retrying or escalating.
-
-This structured flow ensures consistency, with workflows dictating the order, FunctionMap providing functions, and diagrams visualizing the process.
-
-### Quality Assurance and User Experience
-
-Windsurf adheres to strict rules, including no placeholders, fully functional code, and read-before-edit policies, enforced by a reward/penalty framework ([Windsurf Rules](https://docs.codeium.com/windsurf/memories)). This system, while effective, may vary by project complexity, as noted in community feedback ([Reddit on Windsurf](https://www.reddit.com/r/Codeium/comments/1gwz0sd/my_experience_with_windsurf_editor_with_cascade/)).
-
-### Conclusion
-
-The Meta Prompt defines a detailed, structured system for software development, resembling a programmed workflow, with clear steps, functions, and data management, making it highly effective for an AI with memory resets.
+Visit the [Gist repository](https://gist.github.com/entrepeneur4lyf/f43405eb0f3c71bc756292b38340e70d/) for the latest updates and additional resources.
