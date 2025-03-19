@@ -6,6 +6,7 @@ Developed by [Shawn McAllister](https://x.com/entrepeneur4lyf) at Engineered Aut
 
 *Licensed under Apache 2.0. Any use or adaptation of this technology MUST be accompanied by a license and attribution.*
 
+
 Credit to [Nick Baumann w/ Cline Memory Bank](https://cline.bot/blog/memory-bank-how-to-make-cline-an-ai-agent-that-never-forgets) for inspiration with the memory bank system that he developed.
 
 ## Installation Guide for Windsurf IDE
