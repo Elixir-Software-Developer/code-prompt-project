@@ -90,7 +90,7 @@
 }
 
 .dark-mode section {
-  border: 1px solid #464646;
+  border: none;
   background-color: #252526;
 }
 
@@ -99,7 +99,7 @@
 }
 
 .dark-mode footer {
-  border-top: 1px solid #464646;
+  border-top: none;
 }
 
 .dark-mode blockquote {
@@ -171,6 +171,7 @@ section {
   padding: 25px 30px;
   max-width: unset;
   width: 100%;
+  border: none;
 }
 
 footer {
