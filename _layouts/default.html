@@ -100,11 +100,25 @@
             body.classList.add('light-mode');
             localStorage.setItem('theme', 'light');
             toggleIcon.textContent = '🌙';
+
+            // Re-run highlight.js to refresh syntax highlighting
+            if (window.hljs) {
+              document.querySelectorAll('pre code').forEach((block) => {
+                hljs.highlightElement(block);
+              });
+            }
           } else {
             body.classList.remove('light-mode');
             body.classList.add('dark-mode');
             localStorage.setItem('theme', 'dark');
             toggleIcon.textContent = '☀️';
+
+            // Re-run highlight.js to refresh syntax highlighting
+            if (window.hljs) {
+              document.querySelectorAll('pre code').forEach((block) => {
+                hljs.highlightElement(block);
+              });
+            }
           }
         });
       });
