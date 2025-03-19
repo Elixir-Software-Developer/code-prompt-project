@@ -120,13 +120,13 @@
 
 /* Logo styling */
 header img {
-  margin: 15px 17px auto;
+  margin: 15px auto;
   max-width: 150px;
   height: auto;
   display: block;
   border-radius: 50%;
   background-color: white;
-  padding: 5px;
+  padding: 2px 5px auto;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   object-fit: contain;
   object-position: center;
