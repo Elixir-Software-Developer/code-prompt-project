@@ -153,11 +153,12 @@ header img {
 /* Three-column layout */
 .wrapper {
   max-width: 1280px;
-  margin: 0 auto; /* Center the layout */
+  padding: 0;
   display: grid;
   grid-template-columns: 270px 250px 1fr;
   grid-template-areas: "header toc content" "footer footer footer";
   gap: 20px;
+  width: 100%;
 }
 
 header {
