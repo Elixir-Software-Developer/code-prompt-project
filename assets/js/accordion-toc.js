@@ -24,7 +24,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
   accordion.appendChild(accordionList);
 
-  // Process each heading
+  // First pass to collect all h1 headers and create data structure
+  let sections = [];
+  let currentSection = null;
+
   headings.forEach(function(heading) {
     // Skip any "Contents" or "Table of Contents" heading
     if (heading.textContent.trim() === 'Contents' || heading.textContent.trim() === 'Table of Contents') return;
@@ -38,65 +41,75 @@ document.addEventListener('DOMContentLoaded', function() {
       heading.id = id;
     }
 
-    // Handle h1 and h2 differently
     if (heading.tagName.toLowerCase() === 'h1') {
-      h1Counter++;
-      currentH1 = heading;
-      currentH1Id = 'accordion-h1-' + h1Counter;
-
-      // Create accordion group for H1
-      const accordionGroup = document.createElement('li');
-      accordionGroup.className = 'p-accordion__group';
-
-      // Create heading and button
-      const accordionHeading = document.createElement('h3');
-      accordionHeading.className = 'p-accordion__heading';
-
-      const accordionTab = document.createElement('button');
-      accordionTab.className = 'p-accordion__tab';
-      accordionTab.type = 'button';
-      accordionTab.id = currentH1Id;
-      accordionTab.setAttribute('aria-controls', currentH1Id + '-section');
-      accordionTab.setAttribute('aria-expanded', 'false');
-      accordionTab.textContent = heading.textContent;
-
-      accordionHeading.appendChild(accordionTab);
-      accordionGroup.appendChild(accordionHeading);
-
-      // Create panel
-      const accordionPanel = document.createElement('section');
-      accordionPanel.className = 'p-accordion__panel';
-      accordionPanel.id = currentH1Id + '-section';
-      accordionPanel.setAttribute('aria-hidden', 'true');
-      accordionPanel.setAttribute('aria-labelledby', currentH1Id);
-
-      // Create list for h2s that will be inside this panel
-      const h2List = document.createElement('ul');
-      accordionPanel.appendChild(h2List);
-
-      accordionGroup.appendChild(accordionPanel);
-      accordionList.appendChild(accordionGroup);
-
-      // Reset h2 counter for this h1
-      h2Counter = 0;
-    } else if (heading.tagName.toLowerCase() === 'h2' && currentH1) {
-      h2Counter++;
-
-      // Find the panel for current h1
-      const panel = document.getElementById(currentH1Id + '-section');
-      if (panel) {
-        const h2List = panel.querySelector('ul');
-        if (h2List) {
-          // Create list item for h2
-          const h2Item = document.createElement('li');
-          const h2Link = document.createElement('a');
-          h2Link.href = '#' + heading.id;
-          h2Link.textContent = heading.textContent;
-          h2Item.appendChild(h2Link);
-          h2List.appendChild(h2Item);
-        }
-      }
+      currentSection = {
+        title: heading.textContent,
+        id: heading.id,
+        subheadings: []
+      };
+      sections.push(currentSection);
+    } else if (heading.tagName.toLowerCase() === 'h2' && currentSection) {
+      currentSection.subheadings.push({
+        title: heading.textContent,
+        id: heading.id
+      });
     }
+  });
+
+  // Now create accordion elements based on our data structure
+  sections.forEach(function(section, index) {
+    const accordionId = 'accordion-section-' + index;
+
+    // Create accordion group
+    const accordionGroup = document.createElement('li');
+    accordionGroup.className = 'p-accordion__group';
+
+    // Create heading and button
+    const accordionHeading = document.createElement('h3');
+    accordionHeading.className = 'p-accordion__heading';
+
+    const accordionTab = document.createElement('button');
+    accordionTab.className = 'p-accordion__tab';
+    accordionTab.type = 'button';
+    accordionTab.id = accordionId;
+    accordionTab.setAttribute('aria-controls', accordionId + '-panel');
+    accordionTab.setAttribute('aria-expanded', 'false');
+    accordionTab.textContent = section.title;
+
+    accordionHeading.appendChild(accordionTab);
+    accordionGroup.appendChild(accordionHeading);
+
+    // Create panel
+    const accordionPanel = document.createElement('section');
+    accordionPanel.className = 'p-accordion__panel';
+    accordionPanel.id = accordionId + '-panel';
+    accordionPanel.setAttribute('aria-hidden', 'true');
+    accordionPanel.setAttribute('aria-labelledby', accordionId);
+
+    // Add h2 links if we have any
+    if (section.subheadings.length > 0) {
+      const subList = document.createElement('ul');
+
+      section.subheadings.forEach(function(subheading) {
+        const listItem = document.createElement('li');
+        const link = document.createElement('a');
+        link.href = '#' + subheading.id;
+        link.textContent = subheading.title;
+        listItem.appendChild(link);
+        subList.appendChild(listItem);
+      });
+
+      accordionPanel.appendChild(subList);
+    } else {
+      // If no subheadings, add a direct link to the h1
+      const link = document.createElement('a');
+      link.href = '#' + section.id;
+      link.textContent = "Go to section";
+      accordionPanel.appendChild(link);
+    }
+
+    accordionGroup.appendChild(accordionPanel);
+    accordionList.appendChild(accordionGroup);
   });
 
   // Add the accordion to the TOC container
