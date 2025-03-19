@@ -5,7 +5,6 @@
 Developed by [Shawn McAllister](https://x.com/entrepeneur4lyf) at Engineered Automated Systems for Artificial Intelligence (EASAI) in Kannapolis, NC.
 
 *Licensed under Apache 2.0. Any use or adaptation of this technology MUST be accompanied by a license and attribution.*
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 Credit to [Nick Baumann w/ Cline Memory Bank](https://cline.bot/blog/memory-bank-how-to-make-cline-an-ai-agent-that-never-forgets) for inspiration with the memory bank system that he developed.
 
