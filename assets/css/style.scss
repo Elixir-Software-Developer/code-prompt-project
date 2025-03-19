@@ -133,8 +133,8 @@ header img {
   background-color: white;
   padding: 5px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  position: relative;
-  left: 6px; /* Adjust to center the logo inside the circle */
+  object-fit: contain;
+  object-position: center;
 }
 
 .dark-mode header img {
@@ -158,6 +158,7 @@ header img {
 /* Three-column layout */
 .wrapper {
   max-width: 1280px;
+  margin: 0 auto; /* Center the layout */
   display: grid;
   grid-template-columns: 270px 250px 1fr;
   grid-template-areas: "header toc content" "footer footer footer";
@@ -326,7 +327,6 @@ a:hover {
 
 /* Active link in TOC */
 .toc-list a.active {
-  font-weight: bold;
   color: #0056b3;
   border-left: 3px solid #0056b3;
   padding-left: 8px;
