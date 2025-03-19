@@ -4,6 +4,9 @@
 
 Developed by [Shawn McAllister](https://x.com/entrepeneur4lyf) at Engineered Automated Systems for Artificial Intelligence (EASAI) in Kannapolis, NC.
 
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![GitHub stars](https://img.shields.io/github/stars/entrepeneur4lyf/engineered-meta-cognitive-workflow-architecture.svg?style=social)](https://github.com/entrepeneur4lyf/engineered-meta-cognitive-workflow-architecture/stargazers)
+
 *Licensed under Apache 2.0. Any use or adaptation of this technology MUST be accompanied by a license and attribution.*
 
 

@@ -1,7 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
-  // Find the main content section
+  // Find the main content section and header/sidebar
   const contentSection = document.querySelector('section');
-  if (!contentSection) return;
+  const header = document.querySelector('header');
+  if (!contentSection || !header) return;
 
   // Find all headings (h1, h2, h3, etc.) in the content
   const headings = contentSection.querySelectorAll('h1, h2, h3, h4, h5, h6');
@@ -10,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // Create the TOC container
   const tocContainer = document.createElement('div');
   tocContainer.className = 'toc-container';
-  tocContainer.innerHTML = '<h2 id="table-of-contents">Table of Contents</h2><div class="toc-list"></div>';
+  tocContainer.innerHTML = '<h2 id="table-of-contents">Contents</h2><div class="toc-list"></div>';
 
   const tocList = tocContainer.querySelector('.toc-list');
 
@@ -34,6 +35,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Get the heading level (h1=1, h2=2, etc.)
     const level = parseInt(heading.tagName.charAt(1));
+
+    // For sidebar TOC, we might want to limit the depth
+    if (level > 3) return; // Skip h4, h5, h6 for sidebar TOC to keep it compact
 
     // Handle nesting of lists
     if (level > previousLevel) {
@@ -69,11 +73,12 @@ document.addEventListener('DOMContentLoaded', function() {
     previousLevel = level;
   });
 
-  // Insert TOC after the first heading or at the beginning of content
-  const firstHeading = contentSection.querySelector('h1');
-  if (firstHeading) {
-    firstHeading.parentNode.insertBefore(tocContainer, firstHeading.nextSibling);
+  // Find the right place in the sidebar to insert the TOC
+  // If there are downloads, insert after them, otherwise at the end of header
+  const downloads = header.querySelector('.downloads');
+  if (downloads) {
+    downloads.insertAdjacentElement('afterend', tocContainer);
   } else {
-    contentSection.insertBefore(tocContainer, contentSection.firstChild);
+    header.appendChild(tocContainer);
   }
 });
