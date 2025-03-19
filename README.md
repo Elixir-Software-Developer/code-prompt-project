@@ -18,7 +18,9 @@ Credit to [Nick Baumann w/ Cline Memory Bank](https://cline.bot/blog/memory-bank
 Download the Windsurf zip file from [here](https://github.com/entrepeneur4lyf/engineered-meta-cognitive-workflow-architecture/blob/main/archive/windsurf.zip), which contains:
 - `engineered-meta-cognitive-workflow-architecture-v3-windsurf.md` (main prompt)
 - `.windsurfrules` (workspace rules file)
+
 ***
+
 Download the Cline zip file from [here](https://github.com/entrepeneur4lyf/engineered-meta-cognitive-workflow-architecture/blob/main/archive/cline.zip), which contains:
 - `engineered-meta-cognitive-workflow-architecture-v3-cline.md` (main prompt)
 - `.clinerules` (workspace rules file)
