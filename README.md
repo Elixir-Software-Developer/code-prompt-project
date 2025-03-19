@@ -53,20 +53,15 @@ The system's novelty lies in the integration of XML-defined functions with Merma
 
 ```xml
 <FunctionMap>
-  <WorkflowFunctions>
-    <Phase name="Initialization">
-      <Function id="initializeProject">Start the project planning process</Function>
-      <Function id="checkMemoryBankExists">Verify if memory bank directory exists</Function>
-      <!-- Additional functions... -->
-    </Phase>
-  </WorkflowFunctions>
+  <!-- Memory Bank Structure Functions -->
+  <StructureFunctions>
+    <Function id="createProjectBrief">Create the foundational project brief document</Function>
+    <Function id="createProductContext">Document why the project exists and problems it solves</Function>
+    <Function id="createSystemPatterns">Document system architecture and design patterns</Function>
+    <Function id="createTechContext">Document technologies, setup and dependencies</Function>
+    <!-- Additional function -->
+  </StructureFunctions>
 </FunctionMap>
-
-<Workflow id="initialization">
-  <Step function="initializeProject"/>
-  <Step function="checkMemoryBankExists"/>
-  <!-- Additional steps... -->
-</Workflow>
 ```
 
 This XML structure is paired with a corresponding Mermaid diagram:
