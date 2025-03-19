@@ -1,0 +1,120 @@
+---
+---
+
+@import "{{ site.theme }}";
+
+/* Dark Mode Styles */
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #1e1e1e;
+    color: #e6e6e6;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    color: #ffffff;
+  }
+
+  a {
+    color: #58a6ff;
+  }
+
+  a:hover, a:focus {
+    color: #80bdff;
+  }
+
+  code, pre {
+    background-color: #2d2d2d;
+    color: #e6e6e6;
+  }
+
+  pre {
+    border: 1px solid #464646;
+  }
+
+  hr {
+    background-color: #464646;
+  }
+
+  table {
+    border: 1px solid #464646;
+  }
+
+  th, td {
+    border: 1px solid #464646;
+  }
+
+  th {
+    background-color: #2d2d2d;
+  }
+
+  tr:nth-child(even) {
+    background-color: #2a2a2a;
+  }
+
+  section {
+    border: 1px solid #464646;
+    background-color: #2d2d2d;
+  }
+
+  header {
+    border-bottom: 1px solid #464646;
+  }
+
+  footer {
+    border-top: 1px solid #464646;
+  }
+
+  blockquote {
+    border-left: 1px solid #464646;
+    color: #999999;
+  }
+
+  .highlight {
+    background-color: #2d2d2d;
+  }
+}
+
+/* Custom styles for both light and dark mode */
+.markdown-body img {
+  max-width: 100%;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+  border-radius: 4px;
+}
+
+/* Logo styling */
+header img {
+  margin: 15px 0;
+  max-width: 150px;
+  height: auto;
+  display: block;
+  border-radius: 50%;
+}
+
+/* Make the content more readable with better spacing */
+section {
+  max-width: 900px;
+  padding: 25px 30px;
+}
+
+/* Improve code block readability */
+pre {
+  padding: 15px;
+  border-radius: 4px;
+  overflow-x: auto;
+}
+
+/* Improve heading spacing */
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 1.5em;
+  margin-bottom: 0.8em;
+}
+
+/* Improve link hover state */
+a:hover {
+  text-decoration: underline;
+}
+
+/* Mermaid diagram improvements */
+.mermaid {
+  margin: 25px 0;
+}

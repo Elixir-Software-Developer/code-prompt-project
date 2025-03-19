@@ -168,11 +168,18 @@ For maximum effectiveness, integrate documentation into your development workflo
 
 ## Getting Started
 
-1. Copy the templates you need to your project repository
-2. Begin filling them out, starting with the project-overview template
-3. Customize the templates to match your project's specific needs
-4. Commit the documentation alongside your code
-5. Update the documentation as your project evolves
+<!-- Documentation Workflow Functions -->
+<DocumentationFunctions>
+  <Function id="createProjectOverview">Define the project vision, scope, goals, and success criteria</Function>
+  <Function id="createFeatureSpecs">Document detailed specifications of project features and roadmap</Function>
+  <Function id="createRequirements">Define functional, technical, performance and security requirements</Function>
+  <Function id="createTechStack">Document technology choices for frontend, backend, database and infrastructure</Function>
+  <Function id="createDependencyDocs">Create comprehensive inventory of dependencies with versions and documentation links</Function>
+  <Function id="createProjectStructure">Document directory structure, file organization and naming conventions</Function>
+  <Function id="createUserFlows">Map end-to-end user journeys and interaction paths</Function>
+  <Function id="createImplementationStandards">Define development philosophy, code patterns and best practices</Function>
+  <Function id="createMetaWorkflowIntegration">Create XML-based function mapping for documentation integration</Function>
+</DocumentationFunctions>
 
 ---
 
