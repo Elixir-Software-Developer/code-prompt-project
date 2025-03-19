@@ -13,11 +13,15 @@ Developed by [Shawn McAllister](https://x.com/entrepeneur4lyf) at Engineered Aut
 Credit to [Nick Baumann w/ Cline Memory Bank](https://cline.bot/blog/memory-bank-how-to-make-cline-an-ai-agent-that-never-forgets) for inspiration with the memory bank system that he developed.
 
 ## Installation Guide for Windsurf IDE
-
+***
 ### Step 1: Download the Framework Files
-Download the framework zip file from [here](https://gist.github.com/entrepeneur4lyf/f43405eb0f3c71bc756292b38340e70d/archive/827e59df6904be6f991e6a11e38b87c7b11c6f0f.zip), which contains:
-- `engineered-meta-cognitive-workflow-architechture-windsurf.md` (main prompt)
+Download the Windsurf zip file from [here](https://github.com/entrepeneur4lyf/engineered-meta-cognitive-workflow-architecture/blob/main/archive/windsurf.zip), which contains:
+- `engineered-meta-cognitive-workflow-architecture-v3-windsurf.md` (main prompt)
 - `.windsurfrules` (workspace rules file)
+***
+Download the Cline zip file from [here](https://github.com/entrepeneur4lyf/engineered-meta-cognitive-workflow-architecture/blob/main/archive/cline.zip), which contains:
+- `engineered-meta-cognitive-workflow-architecture-v3-cline.md` (main prompt)
+- `.clinerules` (workspace rules file)
 
 ### Step 2: Set Up Global Rules
 1. Open Windsurf IDE

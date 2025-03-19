@@ -60,7 +60,7 @@
 
 .dark-mode code,
 .dark-mode pre {
-  background-color: #2d2d2d;
+  background-color: #1e1e1e;
   color: #e6e6e6;
 }
 
@@ -91,7 +91,7 @@
 
 .dark-mode section {
   border: 1px solid #464646;
-  background-color: #2d2d2d;
+  background-color: #252526;
 }
 
 .dark-mode header {
@@ -108,7 +108,7 @@
 }
 
 .dark-mode .highlight {
-  background-color: #2d2d2d;
+  background-color: #1e1e1e;
 }
 
 /* Custom styles for both light and dark mode */
@@ -120,7 +120,7 @@
 
 /* Logo styling */
 header img {
-  margin: 15px auto;
+  margin: 15px 15px auto;
   max-width: 150px;
   height: auto;
   display: block;
