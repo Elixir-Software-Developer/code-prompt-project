@@ -167,12 +167,22 @@ header {
     width: 270px;
 }
 
-section {
+.content-column {
     grid-area: content;
     padding: 25px 30px;
     max-width: unset;
     width: 100%;
     border: none;
+}
+
+.content-column hr {
+    border: none;
+    height: 50px;
+    width: 90%;
+    margin-top: 0;
+    border-bottom: 1px solid #111111;
+    box-shadow: 0 20px 20px -20px #333;
+    margin: -50px auto 10px;
 }
 
 footer {
