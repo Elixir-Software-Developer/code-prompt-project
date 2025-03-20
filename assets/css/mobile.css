@@ -366,7 +366,7 @@ body.menu-open {
   height: 100%;
 }
 
-/* Reset for the "Back to top" button on mobile */
+  /* Mobile layout and scrolling fixes */
 @media (max-width: 768px) {
   .back-to-top {
     bottom: 20px;
@@ -398,39 +398,51 @@ body.menu-open {
     padding: 10px;
     width: 100%;
     max-width: 100%;
+    overflow-y: auto;
+    height: auto;
+    position: static;
   }
 
-  /* Adjust the section to be full width */
+  /* Simple full-width section without touch restrictions */
   section {
     width: 100%;
     padding: 10px 15px;
     margin-top: 40px; /* Add space for the fixed hamburger menu */
-    touch-action: pan-y; /* Prevent unwanted resizing on touch */
-    -webkit-tap-highlight-color: transparent; /* Remove tap highlight on iOS */
+    overflow: visible;
+    position: static;
   }
 
-  /* Allow content resizing with minimal side effects */
+  /* Simple content column with standard behavior */
   .content-column {
-    -webkit-user-select: text; /* Allow text selection on iOS */
-    user-select: text;
-    -webkit-touch-callout: default; /* Allow contextual menus on touch */
-    touch-action: auto; /* Allow all touch actions including pinch-zoom */
-    position: relative; /* Create stacking context */
-    will-change: transform; /* Hint to browser about upcoming changes */
-    transform: translateZ(0); /* Force hardware acceleration */
-    -webkit-backface-visibility: hidden; /* Prevent flickering on transforms */
-    backface-visibility: hidden;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+    position: static;
+    max-width: 100%;
   }
 
-  /* Support proper touch interactions */
+  /* Basic scrolling settings for body */
   html, body {
-    touch-action: auto; /* Allow all touch gestures including pinch-zoom */
-    -webkit-overflow-scrolling: touch; /* Ensure smooth scrolling on iOS */
+    overflow-y: auto !important;
+    position: static !important;
+    height: auto !important;
+    width: 100% !important;
+    max-width: 100%;
+    -webkit-overflow-scrolling: touch;
   }
 
-  /* Adjust footer for mobile */
+  /* Only prevent scrolling when menu is actually open */
+  body.menu-open {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Minimal footer styling */
   footer {
     padding: 10px 15px;
     text-align: center;
+    position: static;
   }
 }
