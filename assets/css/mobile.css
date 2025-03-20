@@ -409,12 +409,12 @@ body.menu-open {
     -webkit-tap-highlight-color: transparent; /* Remove tap highlight on iOS */
   }
 
-  /* Fix for content pane resizing on touch - works with scale.fix.js */
+  /* Allow content resizing with minimal side effects */
   .content-column {
-    -webkit-user-select: none; /* Prevent text selection on iOS */
-    user-select: none;
-    -webkit-touch-callout: none; /* Prevent contextual menus on touch */
-    touch-action: pan-y; /* Allow vertical scrolling only */
+    -webkit-user-select: text; /* Allow text selection on iOS */
+    user-select: text;
+    -webkit-touch-callout: default; /* Allow contextual menus on touch */
+    touch-action: auto; /* Allow all touch actions including pinch-zoom */
     position: relative; /* Create stacking context */
     will-change: transform; /* Hint to browser about upcoming changes */
     transform: translateZ(0); /* Force hardware acceleration */
@@ -422,9 +422,9 @@ body.menu-open {
     backface-visibility: hidden;
   }
 
-  /* Prevent zoom and other touch-related issues */
+  /* Support proper touch interactions */
   html, body {
-    touch-action: manipulation; /* Improve performance of touch events */
+    touch-action: auto; /* Allow all touch gestures including pinch-zoom */
     -webkit-overflow-scrolling: touch; /* Ensure smooth scrolling on iOS */
   }
 

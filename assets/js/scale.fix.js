@@ -21,13 +21,7 @@
         contentSection.style.height = originalHeight + 'px';
         contentSection.style.minHeight = originalHeight + 'px';
 
-        // Prevent touch callout and text selection which can trigger resizing
-        e.preventDefault();
-
-        // Prevent pinch zoom on content section
-        if (e.touches && e.touches.length > 1) {
-          e.preventDefault();
-        }
+        // Allow all multi-touch gestures including pinch-to-zoom for accessibility
       }
     }, { passive: false });
 
@@ -43,21 +37,19 @@
       }
     }, { passive: true });
 
-    // Handle touch move to prevent unwanted behaviors
+    // Handle touch move to allow scrolling but prevent multi-touch gestures
     document.addEventListener('touchmove', function(e) {
       if (contentSection.contains(e.target) || contentSection === e.target ||
           section.contains(e.target) || section === e.target) {
-        // Allow scrolling but prevent other touch behaviors that might cause resize
-        if (e.touches && e.touches.length > 1) {
-          e.preventDefault();
-        }
+        // Allow all touch gestures including scrolling and pinch-to-zoom
       }
-    }, { passive: false });
+    }, { passive: true });
   }
 
-  // Disable text selection on mobile which can cause unwanted resize behavior
+  // Handle text selection on mobile - only prevent in specific cases
   function disableTextSelection(e) {
-    if (e.target &&
+    // Only prevent context menu, not all text selection
+    if (e.target && e.type === 'contextmenu' &&
         (contentSection.contains(e.target) || contentSection === e.target ||
          section.contains(e.target) || section === e.target)) {
       e.preventDefault();
@@ -78,10 +70,6 @@
       }
     });
 
-    // Add additional meta tag to disable scaling
-    var meta = document.createElement('meta');
-    meta.name = 'viewport';
-    meta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';
-    document.getElementsByTagName('head')[0].appendChild(meta);
+    // Do not add meta tags that restrict user scaling - important for accessibility
   }
 })();
