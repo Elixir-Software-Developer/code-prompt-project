@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   if (!contentSection || !tocContainer) return;
 
-  // Find all h1, h2 headings
+  // Find all h1, h2, h3 headings
   const headings = contentSection.querySelectorAll('h1, h2, h3');
   if (headings.length < 2) return; // Don't create TOC for just a few headings
 
@@ -18,9 +18,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
   accordion.appendChild(accordionList);
 
-  // Process headings to create sections
+  // Process headings to create hierarchical sections
   let sections = [];
-  let currentSection = null;
+  let currentH1Section = null;
 
   headings.forEach(function(heading) {
     // Skip any "Contents" or "Table of Contents" heading
@@ -35,19 +35,22 @@ document.addEventListener('DOMContentLoaded', function() {
       heading.id = id;
     }
 
-    if (heading.tagName.toLowerCase() === 'h1' || heading.tagName.toLowerCase() === 'h2') {
-      currentSection = {
+    if (heading.tagName.toLowerCase() === 'h1') {
+      // Create a new h1 section
+      currentH1Section = {
         title: heading.textContent,
         id: heading.id,
         subheadings: []
       };
-      sections.push(currentSection);
-    } else if (heading.tagName.toLowerCase() === 'h3' && currentSection) {
-      currentSection.subheadings.push({
+      sections.push(currentH1Section);
+    } else if (heading.tagName.toLowerCase() === 'h2' && currentH1Section) {
+      // Add h2 as a subheading to the current h1 section
+      currentH1Section.subheadings.push({
         title: heading.textContent,
         id: heading.id
       });
     }
+    // We're ignoring h3 for now to keep the TOC cleaner
   });
 
   // Create TOC with accordion structure

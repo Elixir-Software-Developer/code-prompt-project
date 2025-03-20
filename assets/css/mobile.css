@@ -148,10 +148,35 @@
   margin-bottom: 5px;
   background-color: rgba(0, 0, 0, 0.03);
   border-radius: 4px;
+  position: relative;
 }
 
 .dark-mode .mobile-accordion .p-accordion__tab {
   background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Add toggle indicator for accordions */
+.mobile-accordion .p-accordion__tab::after {
+  content: '';
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 8px solid #267CB9;
+  transform: translateY(-50%);
+  transition: transform 0.3s ease;
+}
+
+.dark-mode .mobile-accordion .p-accordion__tab::after {
+  border-top-color: #58a6ff;
+}
+
+/* Rotate indicator when accordion is expanded */
+.mobile-accordion .p-accordion__tab[aria-expanded="true"]::after {
+  transform: translateY(-50%) rotate(180deg);
 }
 
 /* Improve spacing around mobile accordion links */
