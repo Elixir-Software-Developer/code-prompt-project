@@ -110,7 +110,84 @@
   border-radius: 50%;
   background-color: white;
   padding: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Mobile accordion styles */
+.mobile-accordion {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.mobile-accordion .p-accordion__panel {
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+.mobile-accordion .toc-subheadings {
+  margin-top: 8px;
+  border-left: 2px solid #e5e5e5;
+  padding-left: 10px;
+  margin-left: 8px;
+}
+
+.dark-mode .mobile-accordion .toc-subheadings {
+  border-left-color: #3a3a3a;
+}
+
+.mobile-accordion .toc-subheadings li {
+  margin-bottom: 10px;
+  border-left: none;
+  padding-left: 0;
+}
+
+/* Make accordion tabs more touch-friendly */
+.mobile-accordion .p-accordion__tab {
+  padding: 10px 8px;
+  font-size: 16px;
+  margin-bottom: 5px;
+  background-color: rgba(0, 0, 0, 0.03);
+  border-radius: 4px;
+}
+
+.dark-mode .mobile-accordion .p-accordion__tab {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Improve spacing around mobile accordion links */
+.mobile-accordion a {
+  display: block;
+  padding: 6px 0;
+  font-size: 15px;
+}
+
+/* Add scrollable areas to individual accordion panels */
+#mobile-toc-list .p-accordion__panel {
+  max-height: 40vh;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+/* Scrollbar styling for mobile accordion panels */
+#mobile-toc-list .p-accordion__panel::-webkit-scrollbar {
+  width: 4px;
+}
+
+#mobile-toc-list .p-accordion__panel::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+#mobile-toc-list .p-accordion__panel::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 3px;
+}
+
+.dark-mode #mobile-toc-list .p-accordion__panel::-webkit-scrollbar-track {
+  background: #2a2a2a;
+}
+
+.dark-mode #mobile-toc-list .p-accordion__panel::-webkit-scrollbar-thumb {
+  background: #555;
 }
 
 /* Drawer sections */

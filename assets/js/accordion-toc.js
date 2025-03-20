@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   accordion.appendChild(accordionList);
 
-  // First pass to collect all h1 headers and create data structure
+  // Process headings to collect h1 and h2 headings
   let sections = [];
   let currentSection = null;
 
@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  // Now create accordion elements based on our data structure
+  // Create TOC with accordion structure
   sections.forEach(function(section, index) {
     const accordionId = 'accordion-section-' + index;
 
@@ -73,7 +73,8 @@ document.addEventListener('DOMContentLoaded', function() {
     accordionTab.type = 'button';
     accordionTab.id = accordionId;
     accordionTab.setAttribute('aria-controls', accordionId + '-panel');
-    accordionTab.setAttribute('aria-expanded', 'false');
+    // Set the first panel to be open by default
+    accordionTab.setAttribute('aria-expanded', index === 0 ? 'true' : 'false');
     accordionTab.textContent = section.title;
 
     accordionHeading.appendChild(accordionTab);
@@ -83,12 +84,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const accordionPanel = document.createElement('section');
     accordionPanel.className = 'p-accordion__panel';
     accordionPanel.id = accordionId + '-panel';
-    accordionPanel.setAttribute('aria-hidden', 'true');
+    accordionPanel.setAttribute('aria-hidden', index === 0 ? 'false' : 'true');
     accordionPanel.setAttribute('aria-labelledby', accordionId);
 
     // Add h2 links if we have any
     if (section.subheadings.length > 0) {
       const subList = document.createElement('ul');
+      subList.className = 'toc-subheadings';
 
       section.subheadings.forEach(function(subheading) {
         const listItem = document.createElement('li');

@@ -222,6 +222,17 @@
                 const clonedAccordion = accordion.cloneNode(true);
                 mobileTocList.appendChild(clonedAccordion);
 
+                // Explicitly set mobile accordion styles
+                clonedAccordion.classList.add('mobile-accordion');
+
+                // Make sure first accordion section is open by default
+                const firstTab = clonedAccordion.querySelector('.p-accordion__tab');
+                const firstPanel = clonedAccordion.querySelector('.p-accordion__panel');
+                if (firstTab && firstPanel) {
+                  firstTab.setAttribute('aria-expanded', 'true');
+                  firstPanel.setAttribute('aria-hidden', 'false');
+                }
+
                 // Setup accordion functionality for the clone
                 setupMobileAccordion(clonedAccordion);
 
@@ -258,6 +269,13 @@
             if (target) {
               const isTargetOpen = target.getAttribute('aria-expanded') === 'true';
               toggleExpanded(target, !isTargetOpen);
+
+              // Scroll the accordion tab into view if it's being opened
+              if (!isTargetOpen) {
+                setTimeout(() => {
+                  target.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }, 100);
+              }
             }
           });
         }
