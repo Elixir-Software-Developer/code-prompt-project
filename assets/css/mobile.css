@@ -405,6 +405,24 @@ body.menu-open {
     width: 100%;
     padding: 10px 15px;
     margin-top: 40px; /* Add space for the fixed hamburger menu */
+    touch-action: pan-y; /* Prevent unwanted resizing on touch */
+    -webkit-tap-highlight-color: transparent; /* Remove tap highlight on iOS */
+  }
+
+  /* Fix for content pane resizing on touch */
+  .content-column {
+    -webkit-user-select: text; /* Ensure proper text selection on iOS */
+    user-select: text;
+    -webkit-touch-callout: default; /* Allow contextual menus on touch */
+    height: auto !important; /* Force height to remain stable */
+    min-height: 0 !important; /* Reset any min-height */
+    transition: none !important; /* Disable any transitions that might cause resize */
+  }
+
+  /* Prevent zoom and other touch-related issues */
+  html, body {
+    touch-action: manipulation; /* Improve performance of touch events */
+    -webkit-overflow-scrolling: touch; /* Ensure smooth scrolling on iOS */
   }
 
   /* Adjust footer for mobile */
