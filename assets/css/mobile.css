@@ -212,9 +212,9 @@
   background-color: rgba(88, 166, 255, 0.15);
 }
 
-/* Add chevron toggle indicator for accordions */
-.mobile-accordion .p-accordion__tab::after {
-  content: '\25BC'; /* Unicode down triangle */
+/* Add chevron toggle indicator for all accordions */
+.p-accordion__tab::after {
+  content: '\25BE'; /* Unicode down triangle - consistent across all accordions */
   position: absolute;
   right: 15px;
   top: 50%;
@@ -224,12 +224,12 @@
   transition: transform 0.3s ease;
 }
 
-.dark-mode .mobile-accordion .p-accordion__tab::after {
+.dark-mode .p-accordion__tab::after {
   color: #58a6ff;
 }
 
 /* Rotate indicator when accordion is expanded */
-.mobile-accordion .p-accordion__tab[aria-expanded="true"]::after {
+.p-accordion__tab[aria-expanded="true"]::after {
   transform: translateY(-50%) rotate(180deg);
 }
 
@@ -409,14 +409,17 @@ body.menu-open {
     -webkit-tap-highlight-color: transparent; /* Remove tap highlight on iOS */
   }
 
-  /* Fix for content pane resizing on touch */
+  /* Fix for content pane resizing on touch - works with scale.fix.js */
   .content-column {
-    -webkit-user-select: text; /* Ensure proper text selection on iOS */
-    user-select: text;
-    -webkit-touch-callout: default; /* Allow contextual menus on touch */
-    height: auto !important; /* Force height to remain stable */
-    min-height: 0 !important; /* Reset any min-height */
-    transition: none !important; /* Disable any transitions that might cause resize */
+    -webkit-user-select: none; /* Prevent text selection on iOS */
+    user-select: none;
+    -webkit-touch-callout: none; /* Prevent contextual menus on touch */
+    touch-action: pan-y; /* Allow vertical scrolling only */
+    position: relative; /* Create stacking context */
+    will-change: transform; /* Hint to browser about upcoming changes */
+    transform: translateZ(0); /* Force hardware acceleration */
+    -webkit-backface-visibility: hidden; /* Prevent flickering on transforms */
+    backface-visibility: hidden;
   }
 
   /* Prevent zoom and other touch-related issues */
