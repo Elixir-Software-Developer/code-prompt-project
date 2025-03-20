@@ -225,12 +225,22 @@
                 // Explicitly set mobile accordion styles
                 clonedAccordion.classList.add('mobile-accordion');
 
-                // Make sure first accordion section is open by default
-                const firstTab = clonedAccordion.querySelector('.p-accordion__tab');
-                const firstPanel = clonedAccordion.querySelector('.p-accordion__panel');
-                if (firstTab && firstPanel) {
-                  firstTab.setAttribute('aria-expanded', 'true');
-                  firstPanel.setAttribute('aria-hidden', 'false');
+                // Reset all accordion sections to be closed by default
+                const allTabs = clonedAccordion.querySelectorAll('.p-accordion__tab');
+                const allPanels = clonedAccordion.querySelectorAll('.p-accordion__panel');
+
+                allTabs.forEach(tab => {
+                  tab.setAttribute('aria-expanded', 'false');
+                });
+
+                allPanels.forEach(panel => {
+                  panel.setAttribute('aria-hidden', 'true');
+                });
+
+                // Only open the first tab
+                if (allTabs.length > 0 && allPanels.length > 0) {
+                  allTabs[0].setAttribute('aria-expanded', 'true');
+                  allPanels[0].setAttribute('aria-hidden', 'false');
                 }
 
                 // Setup accordion functionality for the clone

@@ -1,19 +1,13 @@
 document.addEventListener('DOMContentLoaded', function() {
   // Find the main content section
-  const contentSection = document.querySelector('section');
+  const contentSection = document.querySelector('.content-column');
   const tocContainer = document.getElementById('toc-list');
 
   if (!contentSection || !tocContainer) return;
 
-  // Find only h1, h2 headings for a less granular TOC
-  const headings = contentSection.querySelectorAll('h1, h2');
+  // Find all h1, h2 headings
+  const headings = contentSection.querySelectorAll('h1, h2, h3');
   if (headings.length < 2) return; // Don't create TOC for just a few headings
-
-  // Group headings by their levels to create the accordion structure
-  let currentH1 = null;
-  let currentH1Id = '';
-  let h1Counter = 0;
-  let h2Counter = 0;
 
   // Create accordion container
   const accordion = document.createElement('aside');
@@ -24,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   accordion.appendChild(accordionList);
 
-  // Process headings to collect h1 and h2 headings
+  // Process headings to create sections
   let sections = [];
   let currentSection = null;
 
@@ -41,14 +35,14 @@ document.addEventListener('DOMContentLoaded', function() {
       heading.id = id;
     }
 
-    if (heading.tagName.toLowerCase() === 'h1') {
+    if (heading.tagName.toLowerCase() === 'h1' || heading.tagName.toLowerCase() === 'h2') {
       currentSection = {
         title: heading.textContent,
         id: heading.id,
         subheadings: []
       };
       sections.push(currentSection);
-    } else if (heading.tagName.toLowerCase() === 'h2' && currentSection) {
+    } else if (heading.tagName.toLowerCase() === 'h3' && currentSection) {
       currentSection.subheadings.push({
         title: heading.textContent,
         id: heading.id
@@ -73,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function() {
     accordionTab.type = 'button';
     accordionTab.id = accordionId;
     accordionTab.setAttribute('aria-controls', accordionId + '-panel');
-    // Set the first panel to be open by default
+    // All sections closed by default except the first one
     accordionTab.setAttribute('aria-expanded', index === 0 ? 'true' : 'false');
     accordionTab.textContent = section.title;
 
@@ -87,7 +81,7 @@ document.addEventListener('DOMContentLoaded', function() {
     accordionPanel.setAttribute('aria-hidden', index === 0 ? 'false' : 'true');
     accordionPanel.setAttribute('aria-labelledby', accordionId);
 
-    // Add h2 links if we have any
+    // Add links to subheadings or the main heading
     if (section.subheadings.length > 0) {
       const subList = document.createElement('ul');
       subList.className = 'toc-subheadings';
@@ -103,7 +97,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
       accordionPanel.appendChild(subList);
     } else {
-      // If no subheadings, add a direct link to the h1
+      // If no subheadings, add a direct link to the heading
       const link = document.createElement('a');
       link.href = '#' + section.id;
       link.textContent = "Go to section";
